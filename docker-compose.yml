@@ -1,0 +1,52 @@
+networks:
+    cobalto-network:
+
+services:
+    nginx:
+        image: nginx:stable-alpine
+        container_name: nginx-cobalto
+        ports:
+            - "8080:80"
+        volumes:
+            - ./app:/var/www/project
+            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - php
+            - db
+        networks:
+            - cobalto-network
+
+    php:
+        build:
+            context: .
+            dockerfile: ./php/Dockerfile
+        container_name: php-cobalto
+        ports:
+            - "9000:9000"
+        volumes:
+            - ./app:/var/www/project
+        networks:
+            - cobalto-network
+
+    db:
+        image: mariadb:lts-jammy
+        container_name: mariadb-cobalto
+        ports:
+            - "4306:3306"
+        volumes:
+            - "/var/lib/mysql"
+        restart: always # always restart unless stopped manually
+        environment:
+            MYSQL_ROOT_PASSWORD: secret
+            MYSQL_PASSWORD: secret
+        networks:
+            - cobalto-network
+
+    node:
+        image: node:latest
+        container_name: node-cobalto
+        volumes:
+            - ./app:/var/www/project
+        working_dir: /var/www/project
+        networks:
+            - cobalto-network
