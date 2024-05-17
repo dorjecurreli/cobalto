@@ -48,6 +48,7 @@ services:
         volumes:
             - ./app:/var/www/project
         working_dir: /var/www/project
+        command: tail -f /dev/null
         networks:
             - cobalto-network
 
