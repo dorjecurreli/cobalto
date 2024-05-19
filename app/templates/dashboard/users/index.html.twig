@@ -4,6 +4,8 @@
 
 {% block content %}
 {#    <h1>User Administration</h1>#}
+
+    <a href="{{ path('admin_users_create') }}">Create new</a>
     <table id="users-table" class="display">
         <thead>
         <tr>
@@ -21,7 +23,7 @@
                 <td>{{ user.roles|join(', ') }}</td>
                 <td>
                     <!-- Add any action buttons or links here -->
-                    <a href="{{ path('admin_users_create') }}">Add</a>
+                    <a href="{{ path('admin_users_show', { 'id': user.id }) }}">Show</a>
                     <a href="{{ path('admin_users_edit', { 'id': user.id }) }}">Edit</a>
                     <a href="{{ path('admin_users_delete', { 'id': user.id }) }}" >Delete</a>
                 </td>

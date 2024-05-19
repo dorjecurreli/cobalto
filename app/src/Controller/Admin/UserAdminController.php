@@ -24,7 +24,7 @@ class UserAdminController extends AbstractController
 
 
     #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -71,5 +71,13 @@ class UserAdminController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_users_list', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
+    public function show(User $user): Response
+    {
+        return $this->render('dashboard/users/show.html.twig', [
+            'user' => $user,
+        ]);
     }
 }
