@@ -1,0 +1,30 @@
+@import "~bootstrap";
+@import "~datatables.net-dt";
+
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+.wrapper {
+    display: flex;
+    width: 100%;
+    flex-grow: 1;
+}
+.sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    background-color: #343a40;
+    color: white;
+}
+.sidebar .nav-link {
+    color: white;
+}
+.sidebar .nav-link:hover {
+    background-color: #495057;
+}
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}

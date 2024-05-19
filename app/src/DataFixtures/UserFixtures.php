@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 
 class UserFixtures extends Fixture
 {
@@ -18,6 +19,18 @@ class UserFixtures extends Fixture
 
         $manager->persist($user);
 
-        $manager->flush();
+
+        $faker = Factory::create();
+
+        for ($i = 0; $i < 20; $i++) {
+            $user = new User();
+            $user->setEmail($faker->email);
+            $user->setPassword(password_hash('secret', PASSWORD_BCRYPT));
+
+            $manager->persist($user);
+
+            $manager->flush();
+        }
+
     }
 }
