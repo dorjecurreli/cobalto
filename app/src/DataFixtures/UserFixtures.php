@@ -15,7 +15,7 @@ class UserFixtures extends Fixture
         $user = new User();
         $user->setEmail('dorje.curreli@cobaltopoetry.art');
         $user->setPassword('$2y$13$PaySfGwB02nUkHNLPhwbHeeTiRasafz8gcmok5xcTLJ8Rl9TzLOIO'); // secret
-        $user->setRoles(['ROLE_USER']);
+        $user->setRoles(['ROLE_ADMIN']);
 
         $manager->persist($user);
 
