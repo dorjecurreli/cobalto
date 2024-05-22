@@ -12,3 +12,7 @@ WORKDIR /var/www/project
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN curl -sS https://get.symfony.com/cli/installer | bash
+
+## Update PHP memory_limit in both development and production ini files
+#RUN sed -i 's/memory_limit = .*/memory_limit = 512M/' /usr/local/etc/php/php.ini-development \
+#    && sed -i 's/memory_limit = .*/memory_limit = 512M/' /usr/local/etc/php/php.ini-production

@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
 class Artist
 {
@@ -25,7 +24,7 @@ class Artist
     /**
      * @var Collection<int, Artwork>
      */
-    #[ORM\OneToMany(targetEntity: Artwork::class, mappedBy: 'artist')]
+    #[ORM\OneToMany(targetEntity: Artwork::class, mappedBy: 'artist', cascade: ['persist'])]
     private Collection $artwork;
 
     public function __construct()
@@ -90,5 +89,16 @@ class Artist
         }
 
         return $this;
+    }
+
+
+    public function addTag(Artwork $artwork): void
+    {
+        $this->artwork->add($artwork);
+    }
+
+    public function removeTag(Artwork $artwork): void
+    {
+        // ...
     }
 }

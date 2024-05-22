@@ -1,4 +1,16 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_widget(form.name) }}
+    {{ form_widget(form.bio) }}
+{#{{ dump(form.name) }}#}
+
+{# the data-index attribute is required for the JavaScript code below#}
+<ul class="artworks"
+    data-index="{{ form.artwork|length > 0 ? form.artwork|last.vars.name + 1 : 0 }}"
+    data-prototype="{{ form_widget(form.artwork.vars.prototype)|e('html_attr') }}"
+></ul>
+
+<button type="button" class="add_item_link" data-collection-holder-class="artworks">Add a artwork</button>
+
+
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

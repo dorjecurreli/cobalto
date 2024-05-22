@@ -24,7 +24,8 @@
         "symfony/validator": "7.0.*",
         "symfony/webpack-encore-bundle": "^2.1",
         "symfony/yaml": "7.0.*",
-        "symfonycasts/reset-password-bundle": "^1.21"
+        "symfonycasts/reset-password-bundle": "^1.21",
+        "vich/uploader-bundle": "^2.3"
     },
     "config": {
         "allow-plugins": {
@@ -64,7 +65,13 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "bootstrap-cobalto": [
+            "php bin/console doctrine:database:create",
+            "php bin/console doctrine:migrations:migrate",
+            "php bin/console doctrine:fixtures:load"
         ]
+
     },
     "conflict": {
         "symfony/symfony": "*"

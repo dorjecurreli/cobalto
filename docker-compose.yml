@@ -51,12 +51,3 @@ services:
         command: tail -f /dev/null
         networks:
             - cobalto-network
-
-    email-catcher:
-        image: jeanberu/mailcatcher:0.8.0
-        container_name: email-catcher-cobalto
-        restart: unless-stopped
-        ports:
-            - "10800:1080"
-        depends_on:
-            - "php"
