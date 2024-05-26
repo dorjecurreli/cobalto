@@ -2,10 +2,27 @@
 
 {% block title %}New User{% endblock %}
 
-{% block content %}
-    <h1>Create new User</h1>
+{% block main %}
+{#    <h1>Create new User</h1>#}
 
-    {{ include('dashboard/users/_form.html.twig') }}
 
-    <a href="{{ path('admin_users_list') }}">back to list</a>
+
+
+
+        <div class="jumbotron">
+            <h1 class="display-1 text-center">Create new Use</h1>
+
+            <div class="container">
+                <div class="card card-custom">
+                    <div class="card-body">
+
+                        <div class="col-md-12 col-lg-12 col-xl-12">
+{#                            {% include 'components/messages.html.twig' %}#}
+                        </div>
+                        {{ include('dashboard/users/_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
 {% endblock %}

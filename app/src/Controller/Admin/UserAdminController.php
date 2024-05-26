@@ -7,6 +7,7 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -31,10 +32,22 @@ class UserAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($user);
-            $entityManager->flush();
 
-            return $this->redirectToRoute('app_pippo_index', [], Response::HTTP_SEE_OTHER);
+            $userAlreadyExists = (bool) $entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
+
+            if ($userAlreadyExists) {
+                $form->get('email')->addError(new FormError('This email is already in use.'));
+            } else {
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                $this->addFlash(
+                    'notice',
+                    'User saved!'
+                );
+
+                return $this->redirectToRoute('admin_users_list', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('dashboard/users/create.html.twig', [

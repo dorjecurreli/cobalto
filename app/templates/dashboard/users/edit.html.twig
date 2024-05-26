@@ -2,12 +2,25 @@
 
 {% block title %}Edit User{% endblock %}
 
-{% block content %}
-    <h1>Edit User</h1>
+{% block main %}
+    <div class="jumbotron">
+        <h1 class="display-1 text-center">Edit User</h1>
 
-    {{ include('dashboard/users/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="container">
+            <div class="card card-custom">
+                <div class="card-body">
 
-    <a href="{{ path('app_pippo_index') }}">back to list</a>
+                    <div class="col-md-12 col-lg-12 col-xl-12">
+                        {#                            {% include 'components/messages.html.twig' %}#}
+                    </div>
+                    {{ include('dashboard/users/_form.html.twig', {'button_label': 'Update'}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
     {{ include('dashboard/users/_delete_form.html.twig') }}
 {% endblock %}

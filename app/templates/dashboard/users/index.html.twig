@@ -2,8 +2,10 @@
 
 {% block title %}Hello UserAdminController!{% endblock %}
 
-{% block content %}
-{#    <h1>User Administration</h1>#}
+
+
+{% block main %}
+    <h1>User Administration</h1>
 
     <a href="{{ path('admin_users_create') }}">Create new</a>
     <table id="users-table" class="display">
@@ -25,7 +27,6 @@
                     <!-- Add any action buttons or links here -->
                     <a href="{{ path('admin_users_show', { 'id': user.id }) }}">Show</a>
                     <a href="{{ path('admin_users_edit', { 'id': user.id }) }}">Edit</a>
-                    <a href="{{ path('admin_users_delete', { 'id': user.id }) }}" >Delete</a>
                 </td>
             </tr>
         {% endfor %}
