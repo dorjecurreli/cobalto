@@ -4,29 +4,43 @@
 /*@import "";*/
 
 
-body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+:root {
+    --offcanvas-width: 270px;
+    --topNavbarHeight: 56px
 }
-.wrapper {
-    display: flex;
-    width: 100%;
-    flex-grow: 1;
+
+.sidebar-nav {
+    width: var(--offcanvas-width) !important;
 }
-.sidebar {
-    width: 250px;
-    flex-shrink: 0;
-    background-color: #343a40;
-    color: white;
+.sidebar-link {
+    display: flex !important;
+    align-items: center !important;
 }
-.sidebar .nav-link {
-    color: white;
+
+.sidebar-link .right-icon {
+    display: inline-flex !important;
+    transition: all ease 0.25s !important;
 }
-.sidebar .nav-link:hover {
-    background-color: #495057;
+.sidebar-link[aria-expanded="true"] .right-icon {
+    transform: rotate(180deg);
 }
-.content {
-    flex-grow: 1;
-    padding: 20px;
+
+@media (min-width: 992px) {
+
+    body {
+        overflow: auto !important;
+    }
+    main{
+        margin-left: var(--offcanvas-width);
+    }
+    .offcanvas-backdrop {
+        display: none;
+    }
+    .sidebar-nav {
+        transform: none !important;
+        visibility: visible !important;
+        top: var(--topNavbarHeight) !important;
+        height: calc(100% - var(--topNavbarHeight)) !important;
+    }
 }
+

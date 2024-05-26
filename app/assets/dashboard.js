@@ -1,6 +1,6 @@
-import './styles/dashboard.css';
 import DataTable from 'datatables.net-bs5'
 import 'bootstrap'
+import './styles/dashboard.css';
 
 
 console.log('Cobalto Admin Dashboard')
