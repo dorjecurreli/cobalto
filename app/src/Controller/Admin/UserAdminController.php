@@ -68,9 +68,21 @@ class UserAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
 
-            return $this->redirectToRoute('admin_users_list', [], Response::HTTP_SEE_OTHER);
+            $userAlreadyExists = (bool) $entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
+            if ($userAlreadyExists) {
+                $form->get('email')->addError(new FormError('This email is already in use.'));
+                $this->addFlash(
+                    'danger',
+                    'Something went wrong while trying to create a User.'
+                );
+            } else {
+                $entityManager->flush();
+
+                $this->addFlash('success', 'User edited!');
+
+                return $this->redirectToRoute('admin_users_list', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('dashboard/users/edit.html.twig', [
@@ -85,6 +97,8 @@ class UserAdminController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
+
+            $this->addFlash('success', 'User deleted!');
         }
 
         return $this->redirectToRoute('admin_users_list', [], Response::HTTP_SEE_OTHER);
