@@ -37,12 +37,16 @@ class UserAdminController extends AbstractController
 
             if ($userAlreadyExists) {
                 $form->get('email')->addError(new FormError('This email is already in use.'));
+                $this->addFlash(
+                    'danger',
+                    'Something went wrong while trying to create a User.'
+                );
             } else {
                 $entityManager->persist($user);
                 $entityManager->flush();
 
                 $this->addFlash(
-                    'notice',
+                    'success',
                     'User saved!'
                 );
 

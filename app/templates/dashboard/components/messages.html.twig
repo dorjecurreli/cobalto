@@ -1,0 +1,10 @@
+{% for category, flash_class in {'success': 'alert-success', 'danger': 'alert-danger'} %}
+    {% for message in app.flashes(category) %}
+        <div class="flash-{{ category }}">
+            <div class="alert {{ flash_class }}" role="alert">
+                <em>{{ message }}</em>
+            </div>
+        </div>
+    {% endfor %}
+{% endfor %}
+

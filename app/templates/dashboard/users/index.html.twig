@@ -5,9 +5,14 @@
 
 
 {% block main %}
-    <h1>User Administration</h1>
 
-    <a href="{{ path('admin_users_create') }}">Create new</a>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Users</h1>
+
+        <a href="{{ path('admin_users_create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    class="bi bi-person-plus-fill m-lg-1"></i>Add User</a>
+    </div>
+
     <table id="users-table" class="display">
         <thead>
         <tr>
