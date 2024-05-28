@@ -18,6 +18,7 @@ class ArtistType extends AbstractType
             ->add('name', TextType::class)
             ->add('bio', TextareaType::class)
             ->add('artwork', CollectionType::class, [
+                'label' => false,
                 'entry_type' => ArtworkType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,

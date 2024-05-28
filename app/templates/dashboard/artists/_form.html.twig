@@ -1,16 +1,100 @@
 {{ form_start(form) }}
-    {{ form_widget(form.name) }}
-    {{ form_widget(form.bio) }}
-{#{{ dump(form.name) }}#}
+{{ form_errors(form) }}
 
-{# the data-index attribute is required for the JavaScript code below#}
-<ul class="artworks"
-    data-index="{{ form.artwork|length > 0 ? form.artwork|last.vars.name + 1 : 0 }}"
-    data-prototype="{{ form_widget(form.artwork.vars.prototype)|e('html_attr') }}"
-></ul>
+<div class="col-12">
+    <div class="form-group">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+    </div>
 
-<button type="button" class="add_item_link" data-collection-holder-class="artworks">Add a artwork</button>
+    <div class="form-group">
+        {{ form_label(form.bio) }}
+        {{ form_widget(form.bio, {'attr': {'class': 'form-control'}}) }}
+    </div>
+</div>
 
 
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="row mt-3">
+    <div class="col-12 d-flex">
+        <div>
+            <button type="submit" class="btn btn-primary btn-custom" name="submit">{{ button_label|default('Save') }}</button>
+            <button type="reset" class="btn btn-secondary btn-custom" onclick="window.location.href = '{{ path('admin_artists_list')}}'">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
+<hr class="my-4">
+
+{% macro artworksForm(form) %}
+
+    <div class="jumbotron">
+        <div class="container">
+            <div class="card card-custom">
+                <div class="card-body d-flex flex-column">
+
+                    <div class="col-md-12 mb-3">
+                        <div class="col-12">
+                            <div class="form-group">
+                                {{ form_label(form.name) }}
+                                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(form.imageFile) }}
+                                {{ form_widget(form.imageFile, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-danger mt-2 delete-form-button"><i class="bi bi-x-square"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{{ form_end(form) }}
+{% endmacro artworksForm %}
+{% import _self as formMacros %}
+
+    <div class="artworks mt-3 mb-3 "
+         data-index="{{ form.artwork|length > 0 ? form.artwork|last.vars.name + 1 : 0 }}"
+         data-prototype="{{ formMacros.artworksForm(form.artwork.vars.prototype)|e('html_attr') }}">
+
+    </div>
+
+{% for item in form.artwork %}
+
+
+    <div class="jumbotron">
+        <div class="container">
+            <div class="card card-custom">
+                <div class="card-body d-flex flex-column">
+
+                    <div class="col-md-12 mb-3">
+                        <div class="col-12">
+                            <div class="form-group">
+                                {{ form_label(item.name) }}
+                                {{ form_widget(item.name, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(item.imageFile) }}
+                                {{ form_widget(item.imageFile, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-danger mt-2 delete-form-button"><i class="bi bi-x-square"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+<button type="button" class="add_item_link btn btn-success" data-collection-holder-class="artworks">Add a artwork</button>
 {{ form_end(form) }}

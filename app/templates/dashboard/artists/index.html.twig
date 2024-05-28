@@ -3,14 +3,18 @@
 {% block title %}Artist index{% endblock %}
 
 {% block main %}
-    <h1>Artist index</h1>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Artists</h1>
 
-    <table class="table">
+        <a href="{{ path('admin_artists_create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    class="bi bi-person-plus-fill m-lg-1"></i>Add Artist</a>
+    </div>
+
+    <table id="artists-table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Bio</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -19,19 +23,12 @@
             <tr>
                 <td>{{ artist.id }}</td>
                 <td>{{ artist.name }}</td>
-                <td>{{ artist.bio }}</td>
                 <td>
-                    <a href="{{ path('admin_artists_show', {'id': artist.id}) }}">show</a>
-                    <a href="{{ path('admin_artists_edit', {'id': artist.id}) }}">edit</a>
+                    <a href="{{ path('admin_artists_show', {'id': artist.id}) }}"><i class="bi bi-info-square"></i></a>
+                    <a href="{{ path('admin_artists_edit', {'id': artist.id}) }}"><i class="bi bi-pencil-square"></i></a>
                 </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('admin_artists_create') }}">Create new</a>
 {% endblock %}

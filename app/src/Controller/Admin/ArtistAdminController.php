@@ -50,7 +50,6 @@ class ArtistAdminController extends AbstractController
     public function edit(Request $request, Artist $artist, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ArtistType::class, $artist);
-//        dd($form);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
