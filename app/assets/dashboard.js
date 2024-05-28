@@ -38,8 +38,20 @@ function addFormToCollection(e) {
 
 function addDeleteButtonListener(item) {
     const deleteButton = item.querySelector('.delete-form-button');
+    console.log(deleteButton);
     deleteButton.addEventListener('click', function() {
+        console.log('pippo')
         item.remove();
     });
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.delete-form-button').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const cardContainer = this.closest('.card-container');
+            if (cardContainer) {
+                cardContainer.remove();
+            }
+        });
+    });
+});
