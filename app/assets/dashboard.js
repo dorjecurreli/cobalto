@@ -57,30 +57,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+// Persist active link to local storage
+document.addEventListener("DOMContentLoaded", function() {
+    const sidebarNav = document.getElementById('sidebar');
+    const links = sidebarNav.getElementsByClassName('nav-link');
 
-// // Seleziona tutti gli elementi con la classe "vich-image"
-// var vichImageDivs = document.querySelectorAll('.vich-image');
-//
-// // Ciclo attraverso ogni elemento .vich-image
-// vichImageDivs.forEach(function(vichImageDiv) {
-//     // Crea un nuovo div
-//     var artworkImageDiv = document.createElement('div');
-//     artworkImageDiv.className = 'artwork-image';
-//
-//     // Sposta l'anchor tag all'interno del nuovo div
-//     var anchorTag = vichImageDiv.querySelector('a');
-//     if (anchorTag) {
-//         anchorTag.classList.add('open-modal')
-//         anchorTag.removeAttribute('download');
-//         anchorTag.setAttribute('href', '#');
-//         anchorTag.setAttribute('data-bs-toggle', 'modal');
-//         anchorTag.setAttribute('data-bs-target', '#imageModal');
-//         artworkImageDiv.appendChild(anchorTag);
-//     }
-//
-//     // Inserisci il nuovo div all'interno del div con la classe "vich-image"
-//     vichImageDiv.appendChild(artworkImageDiv);
-// });
+
+    function setActiveLink(link) {
+        // Remove the 'active' class from all links
+        for (let j = 0; j < links.length; j++) {
+            links[j].classList.remove('active');
+        }
+        // Add the 'active' class to the clicked link
+        link.classList.add('active');
+        // Save the active link href to localStorage
+        localStorage.setItem('activeLink', link.getAttribute('href'));
+    }
+
+    for (let i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', function() {
+            setActiveLink(this);
+        });
+    }
+
+    const activeLinkHref = localStorage.getItem('activeLink');
+    if (activeLinkHref) {
+        for (let i = 0; i < links.length; i++) {
+            if (links[i].getAttribute('href') === activeLinkHref) {
+                links[i].classList.add('active');
+                break;
+            }
+        }
+    }
+});
+
 
 
 
