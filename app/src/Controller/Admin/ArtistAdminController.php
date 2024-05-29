@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Artist;
+use App\Entity\Artwork;
 use App\Form\ArtistType;
 use App\Repository\ArtistRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -54,6 +55,12 @@ class ArtistAdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+
+            $artworksToBeDeleted = $entityManager->getRepository(Artwork::class)->findBy(['artist' => null]);
+            foreach ($artworksToBeDeleted as $artwork) {
+                $entityManager->remove($artwork);
+                $entityManager->flush();
+            }
 
             return $this->redirectToRoute('admin_artists_list', [], Response::HTTP_SEE_OTHER);
         }

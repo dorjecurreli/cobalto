@@ -25,6 +25,7 @@ services:
             - "9000:9000"
         volumes:
             - ./app:/var/www/project
+            - ./php/memory.ini:/usr/local/etc/php/conf.d/memory.ini
         networks:
             - cobalto-network
 

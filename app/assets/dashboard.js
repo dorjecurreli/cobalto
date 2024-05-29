@@ -16,7 +16,6 @@ document
 
 function addFormToCollection(e) {
     const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-    console.log( e.currentTarget.dataset.collectionHolderClass)
 
     const item = document.createElement('div');
     item.classList.add('mb-3');
@@ -55,3 +54,44 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+
+
+
+// Seleziona tutti gli elementi con la classe "vich-image"
+var vichImageDivs = document.querySelectorAll('.vich-image');
+
+// Ciclo attraverso ogni elemento .vich-image
+vichImageDivs.forEach(function(vichImageDiv) {
+    // Crea un nuovo div
+    var artworkImageDiv = document.createElement('div');
+    artworkImageDiv.className = 'artwork-image';
+
+    // Sposta l'anchor tag all'interno del nuovo div
+    var anchorTag = vichImageDiv.querySelector('a');
+    if (anchorTag) {
+        anchorTag.classList.add('open-modal')
+        anchorTag.removeAttribute('download');
+        anchorTag.setAttribute('href', '#');
+        anchorTag.setAttribute('data-bs-toggle', 'modal');
+        anchorTag.setAttribute('data-bs-target', '#imageModal');
+        artworkImageDiv.appendChild(anchorTag);
+    }
+
+    // Inserisci il nuovo div all'interno del div con la classe "vich-image"
+    vichImageDiv.appendChild(artworkImageDiv);
+});
+
+
+
+
+
+
+
+document.querySelector('.open-modal').addEventListener('click', function () {
+    var modalElement = document.getElementById('imageModal');
+    var modal = new bootstrap.Modal(modalElement);
+    modal.show();
+});
+
+
