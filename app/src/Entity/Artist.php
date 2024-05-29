@@ -24,7 +24,7 @@ class Artist
     /**
      * @var Collection<int, Artwork>
      */
-    #[ORM\OneToMany(targetEntity: Artwork::class, mappedBy: 'artist', cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: Artwork::class, mappedBy: 'artist', cascade: ['persist'], orphanRemoval: true)]
     private Collection $artwork;
 
     public function __construct()
@@ -89,16 +89,5 @@ class Artist
         }
 
         return $this;
-    }
-
-
-    public function addTag(Artwork $artwork): void
-    {
-        $this->artwork->add($artwork);
-    }
-
-    public function removeTag(Artwork $artwork): void
-    {
-        // ...
     }
 }

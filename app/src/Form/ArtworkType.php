@@ -19,7 +19,7 @@ class ArtworkType extends AbstractType
                 'required' => false,
                 'allow_delete' => false,
                 'download_uri' => false,
-                'image_uri' => true,
+                'image_uri' => false,
                 'asset_helper' => false,
                 'download_label' => 'Download',
                 'delete_label' => 'Delete',

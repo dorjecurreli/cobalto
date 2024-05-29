@@ -86,7 +86,13 @@
                         <div class="form-group">
                             {{ form_label(item.imageFile) }}
                             {{ form_widget(item.imageFile, {'attr': {'class': 'form-control'}}) }}
-                            {{ include('dashboard/components/image-preview-modal.html.twig') }}
+
+                            <div class="image-container">
+                                <a href="#" class="open-modal" data-bs-toggle="modal" data-bs-target="#imageModal_{{ item.vars.value.id }}">
+                                    <img src="{{ vich_uploader_asset(item.vars.value) }}" alt="Image Preview" class="img-fluid">
+                                </a>
+                            </div>
+                            {{ include('dashboard/components/artists/image-preview-modal.html.twig') }}
                         </div>
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-danger mt-2 delete-form-button"><i class="bi bi-x-square"></i></button>
