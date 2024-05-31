@@ -1,0 +1,32 @@
+# Global
+global:
+  save: Save
+  cancel: Cancel
+  update: Update
+  delete: Delete
+# Users
+users:
+  title: Users
+  add: Add User
+  edit: Edit User
+
+#// Users
+#'users.title'                    => 'Users',
+#'users.add'                      => 'Add User',
+#'users.show'                     => 'Edit User',
+#'users.list'                     => 'List Users',
+#'users.details'                  => 'User Details',
+#'users.info'                     => 'User Info',
+#'users.search'                   => 'User Search',
+#'users.records.blank'            => 'No users found',
+#'users.field.data'               => 'Personal data',
+#'users.field.email'              => 'Email',
+#'users.field.roles'              => 'Roles',
+#'users.field.is_activated'       => 'Is Activated',
+#// Messages
+#'users.store.success'            => 'User added successfully',
+#'users.edit.success'             => 'User edited successfully',
+#'users.store.error'              => 'User already registered',
+#'users.delete.success'           => 'User deleted successfully',
+#// User Search
+#'users.search.placeholder'       => 'Search Users...',

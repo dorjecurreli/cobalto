@@ -4,7 +4,7 @@
 
 {% block main %}
     <div class="jumbotron">
-        <h1 class="display-1 text-center">Edit User</h1>
+        <h1 class="display-1 text-center">{% trans from 'messages' %}users.edit{% endtrans %}</h1>
 
         <div class="container">
             <div class="card card-custom">
@@ -15,7 +15,7 @@
                     </div>
 
                     <div class="mt-auto text-end">
-                        <a type="button" class="btn btn-danger btn-custom" data-bs-toggle="modal" data-bs-target="#delete-modal_{{ user.id }}">Delete</a>
+                        <a type="button" class="btn btn-danger btn-custom" data-bs-toggle="modal" data-bs-target="#delete-modal_{{ user.id }}">{% trans from 'messages' %}global.delete{% endtrans %}</a>
                     </div>
 
                     {{ include('dashboard/components/users/modal-delete.html.twig') }}

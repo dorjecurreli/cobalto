@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Cobalto Admin Dashboard{% endblock %}
+{% block head %}<title>Cobalto Admin Dashboard | {% block title %}{% endblock %}</title>{% endblock %}
+
+
+
 
 {% block stylesheets %}
     {{ encore_entry_link_tags('dashboard') }}

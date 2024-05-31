@@ -1,16 +1,17 @@
 {% extends 'dashboard/base.html.twig' %}
 
-{% block title %}Hello UserAdminController!{% endblock %}
+{% block title %}{% trans from 'messages' %}users.title{% endtrans %}{% endblock %}
+
 
 
 
 {% block main %}
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Users</h1>
+        <h1 class="h3 mb-0 text-gray-800">{% trans from 'messages' %}users.title{% endtrans %}</h1>
 
         <a href="{{ path('admin_users_create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="bi bi-person-plus-fill m-lg-1"></i>Add User</a>
+                    class="bi bi-person-plus-fill m-lg-1"></i>{% trans from 'messages' %}users.add{% endtrans %}</a>
     </div>
 
     <table id="users-table" class="display">

@@ -7,12 +7,14 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/admin/users', name: 'admin_users_')]
+#[Route('/admin/{_locale}/users', name: 'admin_users_', requirements: ['_locale' => '%app.supported_locales%'])]
 class UserAdminController extends AbstractController
 {
     #[Route('', name: 'list')]
@@ -64,6 +66,7 @@ class UserAdminController extends AbstractController
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -105,10 +108,44 @@ class UserAdminController extends AbstractController
     }
 
     #[Route('/{id}', name: 'show', methods: ['GET'])]
-    public function show(User $user): Response
+    public function show(User $user, ParameterBagInterface $params): Response
     {
         return $this->render('dashboard/users/show.html.twig', [
             'user' => $user,
+            'availableLanguages' => $params->get('app.available_languages'),
         ]);
+    }
+
+
+    #[Route('/change-locale/{id}', name: 'change-locale', methods: ['POST'])]
+    public function changeLocale(User $user, Request $request, EntityManagerInterface $entityManager, ParameterBagInterface $params): Response
+    {
+        $submittedToken = $request->getPayload()->get('token');
+
+        if (!$this->isCsrfTokenValid('switch-language', $submittedToken)) {
+            $this->addFlash('danger', 'Invalid CSRF Token');
+            return $this->redirectToRoute('admin_users_show', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        $locale = $request->request->get('locale');
+
+        $allowedLocales = '/^('. $params->get('app.supported_locales') . ')$/';
+
+        if (0 === preg_match($allowedLocales, $locale)) {
+            $this->addFlash('danger', 'Invalid locale.');
+            return $this->redirectToRoute('admin_users_show', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Language changed!');
+
+        return $this->redirectToRoute('admin_users_show', [
+            '_locale' => $locale,
+            'id' => $user->getId(),
+        ], Response::HTTP_SEE_OTHER
+        );
+
     }
 }

@@ -38,7 +38,9 @@
                     >
                         <i class="bi bi-person-fill"></i>
                     </a>
+
                     <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="{{ path('admin_users_show', {'id': app.user.id}) }}">Profile</a></li>
                         <li><a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a></li>
                     </ul>
                 </li>
