@@ -1,22 +1,22 @@
 {% extends 'dashboard/base.html.twig' %}
 
-{% block title %}Edit Artist{% endblock %}
+{% block title %}{{ 'artists.edit'|trans }}{% endblock %}
 
 {% block main %}
 
     <div class="jumbotron">
-        <h1 class="display-1 text-center">Edit Artist</h1>
+        <h1 class="display-1 text-center">{{ 'artists.edit'|trans }}</h1>
 
         <div class="container">
             <div class="card card-custom">
                 <div class="card-body d-flex flex-column">
 
                     <div class="col-md-12 mb-3">
-                        {{ include('dashboard/artists/_form.html.twig', {'button_label': 'Update'}) }}
+                        {{ include('dashboard/artists/_form.html.twig', {'button_label': 'global.update'|trans}) }}
                     </div>
 
                     <div class="mt-auto text-end">
-                        <a type="button" class="btn btn-danger btn-custom" data-bs-toggle="modal" data-bs-target="#delete-modal_{{ artist.id }}">Delete</a>
+                        <a type="button" class="btn btn-danger btn-custom" data-bs-toggle="modal" data-bs-target="#delete-modal_{{ artist.id }}">{{ 'global.delete'|trans }}</a>
                     </div>
 
                     {{ include('dashboard/components/artists/modal-delete.html.twig') }}

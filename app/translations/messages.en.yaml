@@ -3,12 +3,39 @@ global:
   save: Save
   cancel: Cancel
   update: Update
+  edit: Edit
   delete: Delete
 # Users
 users:
   title: Users
+  title-singular: User
   add: Add User
   edit: Edit User
+  create: Create New User
+  language:
+    title: Language
+    change: Change Language
+  roles: Roles
+  email: Email
+
+
+# Artists
+artists:
+  title: Artists
+  title-singular: Artist
+  add: Add Artist
+  name: Name
+  actions: Actions
+  edit: Edit Artist
+  create: Create New Artist
+  artwork:
+    title: Artworks
+    name: Artwork
+    image: Image File
+    add: Add Artwork
+
+
+
 
 #// Users
 #'users.title'                    => 'Users',

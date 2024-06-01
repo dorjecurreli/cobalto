@@ -32,8 +32,8 @@
 <div class="row mt-3">
     <div class="col-12 d-flex justify-content-between">
         <div>
-            <button type="submit" class="btn btn-primary btn-custom" name="submit">{{ button_label|default('Save') }}</button>
-            <button type="reset" class="btn btn-secondary btn-custom" onclick="window.location.href = '{{ path('admin_users_list')}}'">Cancel</button>
+            <button type="submit" class="btn btn-primary btn-custom" name="submit">{{ button_label|default('global.save'|trans) }}</button>
+            <button type="reset" class="btn btn-secondary btn-custom" onclick="window.location.href = '{{ path('admin_users_list')}}'">{{ 'global.cancel'|trans }}</button>
         </div>
     </div>
 </div>

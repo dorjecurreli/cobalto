@@ -1,9 +1,9 @@
 {% extends 'dashboard/base.html.twig' %}
 
-{% block title %}Artist{% endblock %}
+{% block title %}{{ 'artists.title-singular'|trans }}{% endblock %}
 
 {% block main %}
-    <h1>Artist</h1>
+    <h1>{{ 'artists.title-singular'|trans }}</h1>
 
     <table class="table">
         <tbody>
@@ -12,7 +12,7 @@
                 <td>{{ artist.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>{{ 'artists.name'|trans }}</th>
                 <td>{{ artist.name }}</td>
             </tr>
             <tr>
@@ -25,10 +25,10 @@
     <div class="row mt-3">
         <div class="col-12 d-flex justify-content-between">
             <div>
-                <a href="{{ path('admin_artists_edit', {id: artist.id}) }}"  class="btn btn-primary btn-custom" name="submit">Edit</a>
-                <a  class="btn btn-secondary btn-custom" onclick="window.location.href = '{{ path('admin_artists_list')}}'">Cancel</a>
+                <a href="{{ path('admin_artists_edit', {id: artist.id}) }}"  class="btn btn-primary btn-custom" name="submit">{{ 'global.edit'|trans }}</a>
+                <a  class="btn btn-secondary btn-custom" onclick="window.location.href = '{{ path('admin_artists_list')}}'">{{ 'global.cancel'|trans }}</a>
             </div>
-            <a type="button" class="btn btn-danger btn-custom " data-bs-toggle="modal" data-bs-target="#delete-modal_{{ artist.id }}">Delete</a>
+            <a type="button" class="btn btn-danger btn-custom " data-bs-toggle="modal" data-bs-target="#delete-modal_{{ artist.id }}">{{ 'global.delete'|trans }}</a>
             {{ include('dashboard/components/artists/modal-delete.html.twig') }}
         </div>
     </div>
@@ -36,7 +36,7 @@
 
 
     <div class="container mt-3">
-        <h2>Artworks</h2>
+        <h2>{{ 'artists.artwork.title'|trans }}</h2>
         <div class="row">
             {% for artwork in artist.artwork %}
                 <div class="col-md-4 mb-3 card-container">

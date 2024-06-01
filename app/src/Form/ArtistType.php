@@ -15,7 +15,9 @@ class ArtistType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, [
+                'label' => 'artists.name',
+            ])
             ->add('bio', TextareaType::class)
             ->add('artwork', CollectionType::class, [
                 'label' => false,

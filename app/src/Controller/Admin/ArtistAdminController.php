@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/admin/artists', name: 'admin_artists_')]
+#[Route('/admin/{_locale}/artists', name: 'admin_artists_', requirements: ['_locale' => '%app.supported_locales%'])]
 class ArtistAdminController extends AbstractController
 {
 

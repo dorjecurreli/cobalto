@@ -1,0 +1,37 @@
+# Global
+global:
+  save: Salva
+  cancel: Annulla
+  update: Aggiorna
+  edit: Modifica
+  delete: Elimina
+
+# Users
+users:
+  title: Utenti
+  title-singular: Utente
+  add: Aggiungi Utente
+  edit: Modifica Utente
+  create: Crea Nuovo Utente
+  language:
+    title: Lingua
+    change: Cambia Lingua
+  roles: Ruoli
+  email: Email
+
+
+# Artists
+artists:
+  title: Artisti
+  title-singular: Artista
+  add: Aggiungi Artista
+  name: Nome
+  actions: Azioni
+  edit: Modifica Artista
+  create: Crea Nuovo Artista
+  artwork:
+    title: Opere d'Arte
+    name: Opera d'Arte
+    image: File Immagine
+    add: Aggiungi Opera d'Arte
+
