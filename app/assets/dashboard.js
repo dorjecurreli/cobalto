@@ -1,12 +1,42 @@
 import DataTable from 'datatables.net-bs5'
 import 'bootstrap'
 import './styles/dashboard.css';
+import datatable_en from 'datatables.net-plugins/i18n/en-GB.json'
+import datatable_it from 'datatables.net-plugins/i18n/it-IT.json'
 
 
 console.log('Cobalto Admin Dashboard')
 
-new DataTable('#users-table');
-new DataTable('#artists-table')
+
+function getLanguageFile(locale) {
+    const languages = {
+        en: datatable_en,
+        it: datatable_it,
+        // Add more mappings as needed
+    };
+
+    return languages[locale] || languages.en;
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const initDataTable = (selector) => {
+        const table = document.querySelector(selector);
+        if (table) {
+            const tableLang = table.getAttribute('lang');
+            const languageFile = getLanguageFile(tableLang);
+            new DataTable(table, {
+                language: languageFile
+            });
+        }
+    };
+
+    initDataTable('#users-table');
+    initDataTable('#artists-table');
+});
+
+
 
 document
     .querySelectorAll('.add_item_link')

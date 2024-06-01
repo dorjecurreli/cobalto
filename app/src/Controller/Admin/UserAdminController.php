@@ -135,6 +135,8 @@ class UserAdminController extends AbstractController
             return $this->redirectToRoute('admin_users_show', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
         }
 
+        $user->setLocale($locale);
+
         $entityManager->persist($user);
         $entityManager->flush();
 
