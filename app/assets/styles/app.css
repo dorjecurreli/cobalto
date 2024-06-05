@@ -30,6 +30,20 @@
     transition: transform 0.5s ease;
 }
 
+#artists-grid .grid-item {
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+.shuffle-enter {
+    transform: scale(0.9);
+    opacity: 0;
+}
+
+.shuffle-leave {
+    transform: scale(1.1);
+    opacity: 0;
+}
+
 
 
 /* Ensure the image takes full width */
