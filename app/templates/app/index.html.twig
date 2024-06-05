@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('app/components/navbar.html.twig') }}
+
+
+    <!-- First Section: Logo -->
+    <div class="container-fluid d-flex flex-column align-items-center justify-content-center vh-100 w-75">
+        <img id="logo" src="https://i.ibb.co/D5Wj6fK/logo.png" alt="Logo" class="img-fluid mb-4">
+        <a href="#content-section" class="btn btn-primary">Go to Content</a>
+    </div>
+
+    <!-- Second Section: Page content -->
+    <div id="content-section" class="container">
+        <div class="text-center mt-5">
+            <h1>A Bootstrap 5 Starter Template</h1>
+            <p class="lead">A complete project boilerplate built with Bootstrap</p>
+            <p>Bootstrap v5.2.3</p>
+        </div>
+
+        <!-- Artists Grid -->
+        <div class="row">
+            {% for artist in artists %}
+                <div class="col-md-4 col-sm-6 mb-4 grid-item">
+                    <div id="carousel-artists_{{ artist.id }}" class="carousel slide" data-bs-ride="carousel" data-bs-interval="{{ random(5000, 10000) }}">
+                        <div class="carousel-inner">
+                            {% for artwork in artist.artwork %}
+{#                                {{ dump(loop.index) }}#}
+                            <div class="carousel-item {% if loop.index == 1 %} active {% endif %}" >
+                                <img src="https://placehold.co/4000x4000" class="d-block w-100" alt="...">
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                    <div class="overlay">
+                        <div class="text">{{ artist.name }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+                <div class="col-md-4 d-flex align-items-center">
+                    <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                        <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+                    </a>
+                    <span class="mb-3 mb-md-0 text-muted">© 2022 Company, Inc</span>
+                </div>
+
+                <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                    <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+                    <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+                    <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+                </ul>
+            </footer>
+        </div>
+    </div>
+{% endblock %}
+

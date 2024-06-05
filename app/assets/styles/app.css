@@ -11,3 +11,72 @@
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
 }
+
+
+
+
+ .vh-100 {
+     height: 100vh;
+ }
+.full-width-image {
+    width: 100%;
+}
+
+
+.navbar-cobalt {
+    background-color: #0047ab; /* Cobalt blue */
+}
+.grid-item {
+    transition: transform 0.5s ease;
+}
+
+
+
+/* Ensure the image takes full width */
+.full-width-image {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Removes any default margins */
+}
+
+.grid-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.grid-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.grid-item:hover .overlay {
+    opacity: 1;
+}
+
+.text {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    .text {
+        font-size: 14px;
+    }
+}
+
