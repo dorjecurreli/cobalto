@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ include('app/components/navbar.html.twig') }}
+
+    <!-- Artist Introduction -->
+    <header class="mt-5">
+        <div class="container text-center">
+            <h1 class="mt-4">{{ artist.name }}</h1>
+        </div>
+    </header>
+
+
+    <!-- Artworks Section -->
+    <section id="artworks" class="mt-5">
+        <div class="container">
+            <!-- Artworks Carousel -->
+            <div id="carouselExample" class="carousel slide carousel-container" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    {% for artwork in artist.artwork %}
+                        <div class="carousel-item {% if loop.index == 1 %} active {% endif %}">
+                            <a data-fancybox="gallery" href="{{ vich_uploader_asset(artwork) }}">
+                                <img src="{{ vich_uploader_asset(artwork) }}" class="d-block w-100 img-fluid carousel-img" alt="...">
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Biography Section -->
+    <section id="bio" class="py-5">
+        <div class="container">
+            <h2>Biography</h2>
+           <p>{{ artist.bio }}</p>
+        </div>
+    </section>
+
+
+{{ include('app/components/footer.html.twig') }}
+
+{% endblock %}
