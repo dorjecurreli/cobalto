@@ -4,6 +4,24 @@ import './styles/dashboard.css';
 import datatable_en from 'datatables.net-plugins/i18n/en-GB.json'
 import datatable_it from 'datatables.net-plugins/i18n/it-IT.json'
 
+import 'tinymce/tinymce'; // Import TinyMCE core
+import 'tinymce/themes/silver/theme'; // Import the Silver theme
+import 'tinymce/plugins/link'; // Import the Link plugin (example plugin)
+
+// Import model and icons from node_modules
+import 'tinymce/models/dom';
+
+
+
+tinymce.init({
+    selector: 'textarea',
+    license_key: 'gpl|jrdqrdzy5tpwliuenm9l1u6ab3jttzbx5yy2ljdszm4ik8qr',
+    plugins: 'link',
+    promotion: false,
+    branding: false
+    // No need to specify paths if imported directly from node_modules
+    // Add your TinyMCE configuration here
+});
 
 console.log('Cobalto Admin Dashboard')
 
