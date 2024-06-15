@@ -17,6 +17,7 @@ users:
     change: Change Language
   roles: Roles
   email: Email
+  password: Password
 
 
 # Artists

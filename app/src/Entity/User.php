@@ -32,7 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 10)]
-    private ?string $locale = null;
+    private ?string $locale = 'en';
 
     public function getId(): ?int
     {

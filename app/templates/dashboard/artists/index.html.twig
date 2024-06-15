@@ -10,11 +10,12 @@
                     class="bi bi-person-plus-fill m-lg-1"></i>{{ 'artists.add'|trans }}</a>
     </div>
 
-    <table id="artists-table" lang="{{ app.locale }}">
+    <table id="artists-table" class="display" lang="{{ app.locale }}">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>{{ 'artists.name'|trans }}</th>
+                <th>Artworks</th>
                 <th>{{ 'artists.actions'|trans }}</th>
             </tr>
         </thead>
@@ -23,6 +24,7 @@
             <tr>
                 <td>{{ artist.id }}</td>
                 <td>{{ artist.name }}</td>
+                <td>{{ artist.artwork|length }}</td>
                 <td>
                     <a href="{{ path('admin_artists_show', {'id': artist.id}) }}"><i class="bi bi-info-square"></i></a>
                     <a href="{{ path('admin_artists_edit', {'id': artist.id}) }}"><i class="bi bi-pencil-square"></i></a>

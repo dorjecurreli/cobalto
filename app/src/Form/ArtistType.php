@@ -20,6 +20,7 @@ class ArtistType extends AbstractType
             ])
             ->add('bio', TextareaType::class, [
                 'label' => 'Biography',
+                'required' => false,
             ])
             ->add('artwork', CollectionType::class, [
                 'label' => false,

@@ -18,6 +18,7 @@ users:
     change: Cambia Lingua
   roles: Ruoli
   email: Email
+  password: Password
 
 
 # Artists

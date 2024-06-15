@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/admin/{_locale}/users', name: 'admin_users_', requirements: ['_locale' => '%app.supported_locales%'])]
@@ -26,7 +27,7 @@ class UserAdminController extends AbstractController
 
 
     #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
-    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    public function create(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -43,6 +44,13 @@ class UserAdminController extends AbstractController
                     'Something went wrong while trying to create a User.'
                 );
             } else {
+                $hashedPassword = $passwordHasher->hashPassword(
+                    $user,
+                    $user->getPassword()
+                );
+
+                $user->setPassword($hashedPassword);
+
                 $entityManager->persist($user);
                 $entityManager->flush();
 
@@ -63,7 +71,7 @@ class UserAdminController extends AbstractController
 
 
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
 
         $form = $this->createForm(UserType::class, $user);
@@ -79,6 +87,14 @@ class UserAdminController extends AbstractController
                     'Something went wrong while trying to create a User.'
                 );
             } else {
+
+                $hashedPassword = $passwordHasher->hashPassword(
+                    $user,
+                    $user->getPassword()
+                );
+
+                $user->setPassword($hashedPassword);
+
                 $entityManager->flush();
 
                 $this->addFlash('success', 'User edited!');
