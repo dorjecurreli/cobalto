@@ -13,21 +13,33 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/admin/{_locale}/users', name: 'admin_users_', requirements: ['_locale' => '%app.supported_locales%'])]
 class UserAdminController extends AbstractController
 {
+
+    public function __construct(
+        private UserRepository $userRepository,
+        private EntityManagerInterface $entityManager,
+        private UserPasswordHasherInterface $passwordHasher,
+        private ParameterBagInterface $params,
+        private TranslatorInterface $translator
+    )
+    {
+    }
+
     #[Route('', name: 'list')]
-    public function index(UserRepository $userRepository): Response
+    public function index(): Response
     {
         return $this->render('dashboard/users/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $this->userRepository->findAll(),
         ]);
     }
 
 
     #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
-    public function create(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function create(Request $request): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -35,28 +47,28 @@ class UserAdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $userAlreadyExists = (bool) $entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
+            $userAlreadyExists = (bool) $this->entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
 
             if ($userAlreadyExists) {
                 $form->get('email')->addError(new FormError('This email is already in use.'));
                 $this->addFlash(
                     'danger',
-                    'Something went wrong while trying to create a User.'
+                    $this->translator->trans('users.flash.danger.add')
                 );
             } else {
-                $hashedPassword = $passwordHasher->hashPassword(
+                $hashedPassword = $this->passwordHasher->hashPassword(
                     $user,
                     $user->getPassword()
                 );
 
                 $user->setPassword($hashedPassword);
 
-                $entityManager->persist($user);
-                $entityManager->flush();
+                $this->entityManager->persist($user);
+                $this->entityManager->flush();
 
                 $this->addFlash(
                     'success',
-                    'User saved!'
+                    $this->translator->trans('users.flash.success.add')
                 );
 
                 return $this->redirectToRoute('admin_users_list', [], Response::HTTP_SEE_OTHER);
@@ -71,7 +83,7 @@ class UserAdminController extends AbstractController
 
 
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function edit(Request $request, User $user): Response
     {
 
         $form = $this->createForm(UserType::class, $user);
@@ -79,25 +91,25 @@ class UserAdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $userAlreadyExists = (bool) $entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
+            $userAlreadyExists = (bool) $this->entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
             if ($userAlreadyExists) {
                 $form->get('email')->addError(new FormError('This email is already in use.'));
                 $this->addFlash(
                     'danger',
-                    'Something went wrong while trying to create a User.'
+                    $this->translator->trans('users.flash.danger.edit')
                 );
             } else {
 
-                $hashedPassword = $passwordHasher->hashPassword(
+                $hashedPassword = $this->passwordHasher->hashPassword(
                     $user,
                     $user->getPassword()
                 );
 
                 $user->setPassword($hashedPassword);
 
-                $entityManager->flush();
+                $this->entityManager->flush();
 
-                $this->addFlash('success', 'User edited!');
+                $this->addFlash('success', $this->translator->trans('users.flash.success.edit'));
 
                 return $this->redirectToRoute('admin_users_list', [], Response::HTTP_SEE_OTHER);
             }
@@ -110,53 +122,53 @@ class UserAdminController extends AbstractController
     }
 
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, User $user): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->get('_token'))) {
-            $entityManager->remove($user);
-            $entityManager->flush();
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
 
-            $this->addFlash('success', 'User deleted!');
+            $this->addFlash('success', $this->translator->trans('users.flash.success.delete'));
         }
 
         return $this->redirectToRoute('admin_users_list', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}', name: 'show', methods: ['GET'])]
-    public function show(User $user, ParameterBagInterface $params): Response
+    public function show(User $user): Response
     {
         return $this->render('dashboard/users/show.html.twig', [
             'user' => $user,
-            'availableLanguages' => $params->get('app.available_languages'),
+            'availableLanguages' => $this->params->get('app.available_languages'),
         ]);
     }
 
 
     #[Route('/change-locale/{id}', name: 'change-locale', methods: ['POST'])]
-    public function changeLocale(User $user, Request $request, EntityManagerInterface $entityManager, ParameterBagInterface $params): Response
+    public function changeLocale(User $user, Request $request): Response
     {
         $submittedToken = $request->getPayload()->get('token');
 
         if (!$this->isCsrfTokenValid('switch-language', $submittedToken)) {
-            $this->addFlash('danger', 'Invalid CSRF Token');
+            $this->addFlash('danger', $this->translator->trans('global.flash.danger.invalid-csrf'));
             return $this->redirectToRoute('admin_users_show', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
         }
 
         $locale = $request->request->get('locale');
 
-        $allowedLocales = '/^('. $params->get('app.supported_locales') . ')$/';
+        $allowedLocales = '/^('. $this->params->get('app.supported_locales') . ')$/';
 
         if (0 === preg_match($allowedLocales, $locale)) {
-            $this->addFlash('danger', 'Invalid locale.');
+            $this->addFlash('success', $this->translator->trans('users.flash.danger.lang-changed'));
             return $this->redirectToRoute('admin_users_show', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
         }
 
         $user->setLocale($locale);
 
-        $entityManager->persist($user);
-        $entityManager->flush();
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
 
-        $this->addFlash('success', 'Language changed!');
+        $this->addFlash('success', $this->translator->trans('users.flash.success.lang-changed'));
 
         return $this->redirectToRoute('admin_users_show', [
             '_locale' => $locale,

@@ -5,6 +5,9 @@ global:
   update: Update
   edit: Edit
   delete: Delete
+  flash:
+    danger:
+      invalid-csrf: Invalid CSRF Token.
 # Users
 users:
   title: Users
@@ -18,6 +21,16 @@ users:
   roles: Roles
   email: Email
   password: Password
+  flash:
+    success:
+      add: User created successfully!
+      edit: User edited successfully!
+      delete: User deleted successfully!
+      lang-changed: Language changed successfully!
+    danger:
+      add: Something went wrong while trying to create a User.
+      edit: Something went wrong while trying to edit a User.
+      lang-changed: Invalid language chosen!
 
 
 # Artists
