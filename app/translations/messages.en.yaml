@@ -34,6 +34,11 @@ artists:
     name: Artwork
     image: Image File
     add: Add Artwork
+  flash:
+    success:
+      add: Artist created successfully!
+      edit: Artist edited successfully!
+      delete: Artist deleted successfully!
 
 
 
