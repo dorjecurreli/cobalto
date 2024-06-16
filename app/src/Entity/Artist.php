@@ -7,8 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Translatable\Translatable;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
-class Artist
+class Artist implements Translatable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,6 +21,7 @@ class Artist
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Gedmo\Translatable]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $bio = null;
 
@@ -26,6 +30,14 @@ class Artist
      */
     #[ORM\OneToMany(targetEntity: Artwork::class, mappedBy: 'artist', cascade: ['persist'], orphanRemoval: true)]
     private Collection $artwork;
+
+
+    /**
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    #[Gedmo\Locale]
+    private $locale;
 
     public function __construct()
     {
@@ -89,5 +101,11 @@ class Artist
         }
 
         return $this;
+    }
+
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }

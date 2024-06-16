@@ -10,6 +10,7 @@ use App\Form\ArtistType;
 use App\Repository\ArtistRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -21,10 +22,10 @@ class ArtistAdminController extends AbstractController
     public function __construct(
         private ArtistRepository $artistRepository,
         private EntityManagerInterface $entityManager,
-        private TranslatorInterface $translator
+        private TranslatorInterface $translator,
+        private ParameterBagInterface $params
     )
-    {
-    }
+    {}
 
     #[Route('', name: 'list', methods: ['GET'])]
     public function index(): Response
@@ -60,10 +61,16 @@ class ArtistAdminController extends AbstractController
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Artist $artist): Response
     {
+        $bioChosenLanguage = $request->get('bio-lang', 'en');
+
+        $artist->setTranslatableLocale($bioChosenLanguage);
+        $this->entityManager->refresh($artist);
+
         $form = $this->createForm(ArtistType::class, $artist);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($artist);
             $this->entityManager->flush();
 
             $artworksToBeDeleted = $this->entityManager->getRepository(Artwork::class)->findBy(['artist' => null]);
@@ -80,6 +87,8 @@ class ArtistAdminController extends AbstractController
         return $this->render('dashboard/artists/edit.html.twig', [
             'artist' => $artist,
             'form' => $form->createView(),
+            'bioChosenLanguage' => $bioChosenLanguage,
+            'availableLanguages' => $this->params->get('app.available_languages'),
         ]);
     }
 
