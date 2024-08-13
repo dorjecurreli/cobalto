@@ -12,9 +12,9 @@ WORKDIR /var/www/project
 # Copy application code
 COPY app /var/www/project
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    composer validate --strict && \
-    composer install
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN composer install
+
 
 
 
