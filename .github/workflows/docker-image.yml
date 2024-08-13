@@ -18,7 +18,8 @@ jobs:
         cd app
         yarn install
         yarn build
+        
 
     - name: Build the Docker image
-      run: ls -la app/public
+      run: docker build . --file Dockerfile --tag cobalto:$(date +%s)
 
