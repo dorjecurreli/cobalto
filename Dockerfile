@@ -1,22 +1,56 @@
-FROM php:8.3-fpm
 
-RUN apt-get update && apt-get install -y zlib1g-dev g++ git libicu-dev zip libzip-dev zip \
-    && docker-php-ext-install intl opcache pdo pdo_mysql \
-    && pecl install apcu \
-    && docker-php-ext-enable apcu \
-    && docker-php-ext-configure zip \
-    && docker-php-ext-install zip
+FROM sindriainc/nginx-php:6.0.0-local-8.2 as builder
 
-WORKDIR /var/www/project
+USER root
 
-# Copy application code
-COPY app /var/www/project
+# Add source code
+COPY ./app /var/www/app
 
-ENV COMPOSER_ALLOW_SUPERUSER=1
+WORKDIR /var/www/app
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer install
+## Setup app env
+#RUN cp .env.production .env
 
+# Build dependecies
+RUN composer install --no-interaction --no-suggest --no-ansi --no-progress
 
+# Build Artifact
+# TODO: build phar artifact
 
+# Push Artifact
+# TODO: push phar artifact
+
+# Production Stage
+FROM sindriainc/nginx-php:6.0.0-local-8.2
+
+WORKDIR /var/www/app
+
+ARG TAG_VERSION
+ARG HOST_USER_UID
+ARG TIMEZONE
+
+#LABEL \
+#	name="xpipe-cmf" \
+#	image="sindriaproject/xpipe-cmf" \
+#	tag="${TAG_VERSION}" \
+#	vendor="sindria"
+
+ENV DEBIAN_FRONTEND="noninteractive"
+ENV TZ=${TIMEZONE}
+ENV SINDRIA_USER="sindria"
+ENV SINDRIA_USER_HOME="/home/sindria"
+
+USER root
+
+# Install application
+COPY --from=builder /var/www/app /var/www/app
+
+# Setting Timezone and Fixing permission
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
+    chmod -R 770 /var/www/app && \
+    chown -R ${SINDRIA_USER}:${SINDRIA_USER} /var/www/app
+
+#CMD ["/bin/bash", "/var/www/app/bin/cmd.sh"]
+
+USER ${SINDRIA_USER}
 
