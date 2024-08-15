@@ -11,7 +11,13 @@ WORKDIR /var/www/app
 ## Setup app env
 #RUN cp .env.production .env
 
+RUN apk update && \
+    apk add nodejs npm yarn
+
 # Build dependecies
+RUN yarn install && \
+    yarn build
+
 RUN composer install --no-interaction --no-suggest --no-ansi --no-progress
 
 # Build Artifact
