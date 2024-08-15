@@ -45,8 +45,8 @@ jobs:
           DOCKERHUB_NAMESPACE: ${{ vars.DOCKERHUB_NAMESPACE }}
         with:
           switches: -ravP --exclude=".git*" --exclude="readme.md" --exclude="src" --exclude=".env.local" --exclude="docker-compose.local.yml" --exclude="build.sh" --exclude="build_all.sh" --exclude="monitoring-alert.env"
-          path: ./
-          remote_path: /root/cobalto
+          path: deployment/
+          remote_path: /root/paperino/
           remote_host: ${{ vars.SSH_HOST }}
           remote_port: ${{ vars.SSH_PORT }}
           remote_user: ${{ secrets.SSH_REMOTE_USER }}
