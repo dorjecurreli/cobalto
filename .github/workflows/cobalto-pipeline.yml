@@ -34,23 +34,23 @@ jobs:
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - name: Set env slug
         run: echo "REPO_SLUG=cobalto" >> $GITHUB_ENV
-      - uses: burnett01/rsync-deployments@5.2
-        name: Pre Deploy
-        env:
-          SSH_HOST: ${{ vars.SSH_HOST }}
-          SSH_REMOTE_USER: ${{ secrets.SSH_REMOTE_USER }}
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_PORT: ${{ vars.SSH_PORT }}
-          COMMON_BASE_PATH: ${{ vars.COMMON_BASE_PATH }}
-          DOCKERHUB_NAMESPACE: ${{ vars.DOCKERHUB_NAMESPACE }}
-        with:
-          switches: -ravP --exclude=".git*" --exclude="readme.md" --exclude="src" --exclude=".env.local" --exclude="docker-compose.local.yml" --exclude="build.sh" --exclude="build_all.sh" --exclude="monitoring-alert.env"
-          path: ./
-          remote_path: /root/cobalto
-          remote_host: ${{ vars.SSH_HOST }}
-          remote_port: ${{ vars.SSH_PORT }}
-          remote_user: ${{ secrets.SSH_REMOTE_USER }}
-          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+#      - uses: burnett01/rsync-deployments@5.2
+#        name: Pre Deploy
+#        env:
+#          SSH_HOST: ${{ vars.SSH_HOST }}
+#          SSH_REMOTE_USER: ${{ secrets.SSH_REMOTE_USER }}
+#          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+#          SSH_PORT: ${{ vars.SSH_PORT }}
+#          COMMON_BASE_PATH: ${{ vars.COMMON_BASE_PATH }}
+#          DOCKERHUB_NAMESPACE: ${{ secrets.DOCKERHUB_NAMESPACE }}
+#        with:
+#          switches: -ravP --exclude=".git*" --exclude="readme.md" --exclude="src"
+#          path: deployment/
+#          remote_path: /root/paperino/
+#          remote_host: ${{ vars.SSH_HOST }}
+#          remote_port: ${{ vars.SSH_PORT }}
+#          remote_user: ${{ secrets.SSH_REMOTE_USER }}
+#          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: appleboy/ssh-action@v1.0.0
         name: Deploy IaC
         env:
@@ -59,13 +59,13 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_PORT: ${{ vars.SSH_PORT }}
           COMMON_BASE_PATH: ${{ vars.COMMON_BASE_PATH }}
-          DOCKERHUB_NAMESPACE: ${{ vars.DOCKERHUB_NAMESPACE }}
+          DOCKERHUB_NAMESPACE: ${{ secrets.DOCKERHUB_NAMESPACE }}
         with:
           host: ${{ vars.SSH_HOST }}
           username: ${{ secrets.SSH_REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ vars.SSH_PORT }}
-          envs: RELEASE_VERSION,REPO_SLUG,COMMON_BASE_PATH,DOCKERHUB_PRIVATE_NAMESPACE
+          envs: RELEASE_VERSION,REPO_SLUG,COMMON_BASE_PATH,DOCKERHUB_NAMESPACE
           script_stop: true
           script: |
             cd ${COMMON_BASE_PATH}/${REPO_SLUG}
