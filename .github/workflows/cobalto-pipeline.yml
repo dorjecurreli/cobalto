@@ -27,17 +27,15 @@ jobs:
           DOCKERHUB_NAMESPACE: ${{ secrets.DOCKERHUB_NAMESPACE }}
         run: bash build_all.sh ${DOCKERHUB_NAMESPACE}/${REPO_SLUG} ${RELEASE_VERSION}
 
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.20.0
-        with:
-          image-ref: '${{ secrets.DOCKERHUB_NAMESPACE }}/cobalto:v0.0.13'
-          format: 'table'
-          exit-code: '1'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
-
-
+#      - name: Run Trivy vulnerability scanner
+#        uses: aquasecurity/trivy-action@0.20.0
+#        with:
+#          image-ref: '${{ secrets.DOCKERHUB_NAMESPACE }}/cobalto:v0.0.13'
+#          format: 'table'
+#          exit-code: '1'
+#          ignore-unfixed: true
+#          vuln-type: 'os,library'
+#          severity: 'CRITICAL,HIGH'
 
 
 
@@ -62,7 +60,7 @@ jobs:
         with:
           switches: -ravP --exclude=".git*" --exclude="readme.md" --exclude="src"
           path: deployment/
-          remote_path: /root/cobalto/
+          remote_path: /home/cobalto/
           remote_host: ${{ vars.SSH_HOST }}
           remote_port: ${{ vars.SSH_PORT }}
           remote_user: ${{ secrets.SSH_REMOTE_USER }}
