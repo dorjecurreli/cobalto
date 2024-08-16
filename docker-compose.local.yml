@@ -5,7 +5,7 @@ services:
   app:
     image: "sindriainc/nginx-php:${NGINX_PHP_TAG}-${NGINX_PHP_VERSION}"
     container_name: "${APP_NAME}"
-    command: /bin/bash -c "sudo apk update; sudo apk add nodejs npm; bash /var/www/app/bin/cmd.sh"
+    command: /bin/bash -c "sudo apk update; sudo apk add nodejs npm yarn"
     #command: /bin/bash -c "sudo apk update; sudo apk add nodejs npm; sudo chmod +x /usr/local/bin/startup.sh; bash /usr/local/bin/startup.sh"
     #command: "tail -f /dev/null"
     #entrypoint: "tail -f /dev/null"
