@@ -75,6 +75,8 @@ jobs:
           SSH_PORT: ${{ vars.SSH_PORT }}
           COMMON_BASE_PATH: ${{ vars.COMMON_BASE_PATH }}
           DOCKERHUB_NAMESPACE: ${{ secrets.DOCKERHUB_NAMESPACE }}
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         with:
           host: ${{ vars.SSH_HOST }}
           username: ${{ secrets.SSH_REMOTE_USER }}
@@ -83,8 +85,12 @@ jobs:
           envs: RELEASE_VERSION,REPO_SLUG,COMMON_BASE_PATH,DOCKERHUB_NAMESPACE
           script_stop: true
           script: |
+            echo ${DOCKERHUB_USERNAME}
+            echo ${DOCKERHUB_TOKEN} | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
             cd ${COMMON_BASE_PATH}/${REPO_SLUG}
+            sed -i "s|dorjecurreli/cobalto:v[0-9]\+\.[0-9]\+\.[0-9]\+|dorjecurreli/cobalto:${RELEASE_VERSION}|" docker-compose.production.yml
             cp docker-compose.production.yml docker-compose.yml
             cp .env.production .env
             docker compose down
             docker compose up -d
+
