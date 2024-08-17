@@ -1,0 +1,13 @@
+# Read the documentation: https://github.com/1up-lab/OneupFlysystemBundle
+oneup_flysystem:
+    adapters:
+        assets_adapter:
+            awss3v3:
+                client: acme.s3_client
+                bucket: "%env(DO_SOS_NAME)%"
+                prefix: assets
+
+    filesystems:
+        assets_fs:
+            adapter:    assets_adapter
+            mount:      assets_fs

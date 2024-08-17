@@ -1,7 +1,7 @@
 vich_uploader:
     db_driver: orm
     mappings:
-        artwork_images:
+        assets:
             uri_prefix: /uploads/images/artworks
             upload_destination: '%kernel.project_dir%/public/uploads/images/artworks'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
@@ -12,3 +12,15 @@ vich_uploader:
     #        uri_prefix: /images/products
     #        upload_destination: '%kernel.project_dir%/public/images/products'
     #        namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+
+
+#vich_uploader:
+#    db_driver: orm
+#    storage:   flysystem
+#
+#    mappings:
+#        assets:
+#            uri_prefix:         https://cobalto-sos.fra1.cdn.digitaloceanspaces.com/assets
+#            upload_destination: oneup_flysystem.assets_fs_filesystem
+#            namer:              vich_uploader.namer_uniqid

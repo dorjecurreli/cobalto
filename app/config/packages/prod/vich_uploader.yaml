@@ -1,0 +1,9 @@
+vich_uploader:
+  db_driver: orm
+  storage:   flysystem
+
+  mappings:
+    assets:
+      uri_prefix:         https://cobalto-sos.fra1.cdn.digitaloceanspaces.com/assets
+      upload_destination: oneup_flysystem.assets_fs_filesystem
+      namer:              vich_uploader.namer_uniqid
