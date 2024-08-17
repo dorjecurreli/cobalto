@@ -52,6 +52,11 @@ jobs:
 
       - name: Setup docker compose env
         run: echo "${{ secrets.DOCKER_COMPOSE_ENV_PROD }}" | base64 --decode > deployment/.env.production
+      - name: Setup symfony env
+        run: |
+          echo "${{ secrets.SYMFONY_ENV }}" | base64 --decode > ./app/.env.local
+          ls -la
+          ls -la ./app
       - uses: burnett01/rsync-deployments@5.2
         name: Pre Deploy
         env:
