@@ -242,4 +242,4 @@ yarn-error.log
 public/uploads
 .env.local
 .env.prod
-.env.prod.encoded
+.env.local.encoded
