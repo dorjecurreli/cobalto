@@ -8,9 +8,8 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import 'bootstrap'
 import './styles/app.css';
-import { Fancybox } from "@fancyapps/ui";
+import {Fancybox} from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
-
 
 
 // Initialize FancyBox
@@ -79,3 +78,34 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 500);
     }
 });
+
+function getLocaleFromUrl() {
+    const url = window.location.pathname;
+    console.log(url)
+    const parts = url.split('/');
+    console.log(parts)
+    // The locale is expected to be the first segment of the path
+    return parts[1] || '';
+}
+
+function setSelectedLanguage() {
+    const locale = getLocaleFromUrl();
+    const selectElement = document.getElementById('languageSelect');
+    const optionId = `locale-${locale}`;
+    const optionElement = document.getElementById(optionId);
+
+    if (optionElement) {
+        selectElement.value = optionElement.value;
+    }
+}
+
+//  handle language change
+document.getElementById('languageSelect').addEventListener('change', function() {
+    const selectedValue = this.value;
+    if (selectedValue) {
+        window.location.href = selectedValue;
+    }
+});
+
+window.onload = setSelectedLanguage;
+
