@@ -5,6 +5,9 @@ services:
   app:
     image: "dorjecurreli/cobalto:v0.0.1"
     container_name: "${APP_NAME}"
+    command: |
+      php bin/console --no-interaction doctrine:migrations:migrate
+      ./scripts/run_worker.sh
 #    command: /bin/bash -c "sudo apk update; sudo apk add nodejs npm yarn"
     #command: /bin/bash -c "sudo apk update; sudo apk add nodejs npm; sudo chmod +x /usr/local/bin/startup.sh; bash /usr/local/bin/startup.sh"
     #command: "tail -f /dev/null"
