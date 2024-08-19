@@ -54,9 +54,12 @@ COPY --from=builder /var/www/app /var/www/app
 # Setting Timezone and Fixing permission
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
     chmod -R 770 /var/www/app && \
-    chown -R ${SINDRIA_USER}:${SINDRIA_USER} /var/www/app
+    chown -R ${SINDRIA_USER}:${SINDRIA_USER} /var/www/app && \
+    chmod +x /usr/local/bin/startup.sh && \
+    chmod +x /var/www/app/bin/run-worker.sh && \
+    chmod +x /var/www/app/bin/cmd.sh
 
-#CMD ["/bin/bash", "/var/www/app/bin/cmd.sh"]
+CMD ["/bin/bash", "/var/www/app/bin/cmd.sh"]
 
 USER ${SINDRIA_USER}
 
