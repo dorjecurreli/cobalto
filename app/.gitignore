@@ -204,6 +204,8 @@ fabric.properties
 /bin/*
 !bin/console
 !bin/symfony_requirements
+!bin/cmd.sh
+!bin/run_worker.sh
 /vendor/
 
 # Assets and user uploads
