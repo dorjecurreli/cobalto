@@ -48,6 +48,10 @@ ENV SINDRIA_USER_HOME="/home/sindria"
 
 USER root
 
+#Patch stdout stderr support
+COPY ./php/php-fpm.conf /etc/php82/php-fpm.conf
+COPY ./php/sindria.conf /etc/php82/php-fpm.d/sindria.conf
+
 # Install application
 COPY --from=builder /var/www/app /var/www/app
 
@@ -58,6 +62,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone &
     chmod +x /usr/local/bin/startup.sh && \
     chmod +x /var/www/app/bin/run_worker.sh && \
     chmod +x /var/www/app/bin/cmd.sh
+
 
 CMD ["/bin/bash", "/var/www/app/bin/cmd.sh"]
 
