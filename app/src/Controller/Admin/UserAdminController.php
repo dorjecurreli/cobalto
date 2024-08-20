@@ -88,34 +88,23 @@ class UserAdminController extends AbstractController
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user): Response
     {
-
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $userAlreadyExists = (bool) $this->entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
-            if ($userAlreadyExists) {
-                $form->get('email')->addError(new FormError('This email is already in use.'));
-                $this->addFlash(
-                    'danger',
-                    $this->translator->trans('users.flash.danger.edit')
-                );
-            } else {
+            $hashedPassword = $this->passwordHasher->hashPassword(
+                $user,
+                $user->getPassword()
+            );
 
-                $hashedPassword = $this->passwordHasher->hashPassword(
-                    $user,
-                    $user->getPassword()
-                );
+            $user->setPassword($hashedPassword);
 
-                $user->setPassword($hashedPassword);
+            $this->entityManager->flush();
 
-                $this->entityManager->flush();
+            $this->addFlash('success', $this->translator->trans('users.flash.success.edit'));
 
-                $this->addFlash('success', $this->translator->trans('users.flash.success.edit'));
-
-                return $this->redirectToRoute('admin_users_list', [], Response::HTTP_SEE_OTHER);
-            }
+            return $this->redirectToRoute('admin_users_list', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('dashboard/users/edit.html.twig', [
