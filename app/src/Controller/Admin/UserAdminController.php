@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/admin/{_locale}/users', name: 'admin_users_', requirements: ['_locale' => '%app.supported_locales%'])]
@@ -38,6 +39,7 @@ class UserAdminController extends AbstractController
     }
 
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
@@ -82,6 +84,7 @@ class UserAdminController extends AbstractController
     }
 
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user): Response
     {
@@ -121,6 +124,7 @@ class UserAdminController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, User $user): Response
     {

@@ -10,8 +10,10 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">{% trans from 'messages' %}users.title{% endtrans %}</h1>
 
+        {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('admin_users_create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                     class="bi bi-person-plus-fill m-lg-1"></i>{% trans from 'messages' %}users.add{% endtrans %}</a>
+        {% endif %}
     </div>
 
     <table id="users-table" class="display" lang="{{ app.locale }}">
@@ -32,9 +34,11 @@
                 <td>
                     <!-- Add any action buttons or links here -->
                     <a href="{{ path('admin_users_show', { 'id': user.id }) }}"><i class="bi bi-info-square"></i></a>
+                    {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('admin_users_edit', { 'id': user.id }) }}"><i class="bi bi-pencil-square"></i></a>
                     <a data-bs-toggle="modal" data-bs-target="#delete-modal_{{ user.id }}"><i class="bi bi-x-square"></i></a>
                     {{ include('dashboard/components/users/modal-delete.html.twig') }}
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
