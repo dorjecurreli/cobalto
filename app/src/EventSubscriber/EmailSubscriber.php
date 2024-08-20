@@ -15,7 +15,6 @@ class EmailSubscriber implements EventSubscriberInterface
         private ResetPasswordHelperInterface $resetPasswordHelper,
         private MailerInterface $mailer
     ) {}
-
     public function onUserCreated(UserCreatedEvent $event): void
     {
         $user = $event->getUser();
@@ -33,9 +32,7 @@ class EmailSubscriber implements EventSubscriberInterface
 
         $this->mailer->send($email);
     }
-
-
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             UserCreatedEvent::class => 'onUserCreated',
