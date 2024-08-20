@@ -48,7 +48,6 @@ class UserAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $userAlreadyExists = (bool) $this->entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
 
             if ($userAlreadyExists) {
@@ -57,24 +56,29 @@ class UserAdminController extends AbstractController
                     'danger',
                     $this->translator->trans('users.flash.danger.add')
                 );
-            } else {
-                $hashedPassword = $this->passwordHasher->hashPassword(
-                    $user,
-                    $user->getPassword()
-                );
 
-                $user->setPassword($hashedPassword);
-
-                $this->entityManager->persist($user);
-                $this->entityManager->flush();
-
-                $this->addFlash(
-                    'success',
-                    $this->translator->trans('users.flash.success.add')
-                );
-
-                return $this->redirectToRoute('admin_users_list', [], Response::HTTP_SEE_OTHER);
+                return $this->render('dashboard/users/create.html.twig', [
+                    'user' => $user,
+                    'form' => $form,
+                ]);
             }
+
+            $hashedPassword = $this->passwordHasher->hashPassword(
+                $user,
+                $user->getPassword()
+            );
+
+            $user->setPassword($hashedPassword);
+
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                $this->translator->trans('users.flash.success.add')
+            );
+
+            return $this->redirectToRoute('admin_users_list', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('dashboard/users/create.html.twig', [
@@ -82,6 +86,7 @@ class UserAdminController extends AbstractController
             'form' => $form,
         ]);
     }
+
 
 
     #[IsGranted('ROLE_ADMIN')]
