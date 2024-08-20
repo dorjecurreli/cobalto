@@ -6,15 +6,18 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
 #[Route('/admin/{_locale}/users', name: 'admin_users_', requirements: ['_locale' => '%app.supported_locales%'])]
 class UserAdminController extends AbstractController
@@ -23,9 +26,10 @@ class UserAdminController extends AbstractController
     public function __construct(
         private UserRepository $userRepository,
         private EntityManagerInterface $entityManager,
-        private UserPasswordHasherInterface $passwordHasher,
         private ParameterBagInterface $params,
-        private TranslatorInterface $translator
+        private TranslatorInterface $translator,
+        private ResetPasswordHelperInterface $resetPasswordHelper,
+        private MailerInterface $mailer
     )
     {
     }
@@ -63,15 +67,23 @@ class UserAdminController extends AbstractController
                 ]);
             }
 
-            $hashedPassword = $this->passwordHasher->hashPassword(
-                $user,
-                $user->getPassword()
-            );
-
-            $user->setPassword($hashedPassword);
-
             $this->entityManager->persist($user);
             $this->entityManager->flush();
+
+
+            $resetToken = $this->resetPasswordHelper->generateResetToken($user);
+
+            $email = (new TemplatedEmail())
+                ->from(new Address('security@cobaltopoetry.art', 'Cobalto Security Bot'))
+                ->to($user->getEmail())
+                ->subject('Your password reset request')
+                ->htmlTemplate('reset_password/set-password-email.html.twig')
+                ->context([
+                    'resetToken' => $resetToken,
+                ])
+            ;
+
+            $this->mailer->send($email);
 
             $this->addFlash(
                 'success',
@@ -97,13 +109,6 @@ class UserAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $hashedPassword = $this->passwordHasher->hashPassword(
-                $user,
-                $user->getPassword()
-            );
-
-            $user->setPassword($hashedPassword);
 
             $this->entityManager->flush();
 
