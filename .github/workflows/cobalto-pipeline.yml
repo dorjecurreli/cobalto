@@ -98,6 +98,7 @@ jobs:
             cp .env.production .env
             docker compose down
             docker compose up -d
+            docker container exec cobalto php bin/console doctrine:migrations:migrate
 
 
 
