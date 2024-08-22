@@ -52,6 +52,8 @@ jobs:
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - name: Set env slug
         run: echo "REPO_SLUG=cobalto" >> $GITHUB_ENV
+      - name: Set env Timestamp
+        run: echo "TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_ENV
       - name: Setup docker compose env
         run: echo "${{ secrets.DOCKER_COMPOSE_ENV_PROD }}" | base64 --decode > deployment/.env.production
       - uses: burnett01/rsync-deployments@5.2
@@ -73,7 +75,8 @@ jobs:
           remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - uses: appleboy/ssh-action@v1.0.0
-        name: Deploy IaC
+        name: Deploy Cobalto Production
+        id: deploy_cobalto_prod
         env:
           SSH_HOST: ${{ vars.SSH_HOST }}
           SSH_REMOTE_USER: ${{ secrets.SSH_REMOTE_USER }}
@@ -100,13 +103,23 @@ jobs:
             docker compose up -d
             sleep 20
             docker container exec cobalto php bin/console doctrine:migrations:migrate
+            exit 1
 
       - name: send telegram
         uses: appleboy/telegram-action@master
+        if: ${{ failure() && steps.deploy_cobalto_prod.outcome == 'failure' }}
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: Hello Cobalto
+          message: |
+            🚨 *Deployment Failed* 🚨
+
+            *Service:* `Cobalto`
+            *Environment:* `Production`
+            *Version:* `${{ env.RELEASE_VERSION}}`
+            *Timestamp:* `${{ env.TIMESTAMP }}`
+
+            Starting reconciliation...
 
 
   reconcilation:
