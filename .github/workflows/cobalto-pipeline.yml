@@ -105,7 +105,7 @@ jobs:
             docker container exec cobalto php bin/console doctrine:migrations:migrate
             exit 1
 
-      - name: send telegram
+      - name: Send telegram message deploy failure
         uses: appleboy/telegram-action@master
         if: ${{ failure() && steps.deploy_cobalto_prod.outcome == 'failure' }}
         with:
@@ -120,7 +120,16 @@ jobs:
             *Timestamp:* `${{ env.TIMESTAMP }}`
 
             Starting reconciliation...
-
+      - name: Send telegram message deploy success
+        uses: appleboy/telegram-action@master
+        if: ${{ success() && steps.deploy_cobalto_prod.outcome == 'success' }}
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            🚀 Deployment Successful! ✅
+  
+            The deployment of Version ${{ env.RELEASE_VERSION}} has been completed successfully. Everything is up and running as expected.
 
   reconcilation:
     runs-on: ubuntu-latest
@@ -133,12 +142,19 @@ jobs:
       - name: Set env release
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - name: Set env previous release
-        run: |
-          echo "PREVIOUS_RELEASE_VERSION=$(git tag -l 'v*.*.*-prod' --sort=-v:refname | head -n 2 | tail -n 1)" >> $GITHUB_ENV
-          cat $GITHUB_ENV
-
+        run:  echo "PREVIOUS_RELEASE_VERSION=$(git tag -l 'v*.*.*-prod' --sort=-v:refname | head -n 2 | tail -n 1)" >> $GITHUB_ENV
       - name: Set env slug
         run: echo "REPO_SLUG=cobalto" >> $GITHUB_ENV
+      - name: Send telegram message reconciliation start
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            🚀 Reconciliation Job Started 🚀
+
+            🔄 Rolling back from ${{ env.RELEASE_VERSION}} to ${{ env.PREVIOUS_RELEASE_VERSION}} 🔄
+
 
       - uses: appleboy/ssh-action@v1.0.0
         name: Deploy IaC
@@ -168,6 +184,16 @@ jobs:
             docker compose up -d
             sleep 20
             docker container exec cobalto php bin/console doctrine:migrations:migrate
+
+      - name: Send telegram message reconciliation start
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            🎉 Reconciliation Complete! 🎉
+
+            The reconciliation for Version ${{ env.PREVIOUS_RELEASE_VERSION}} has been successfully completed.
           
 
 
