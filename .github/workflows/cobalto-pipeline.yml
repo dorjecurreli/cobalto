@@ -101,6 +101,18 @@ jobs:
             sleep 20
             docker container exec cobalto php bin/console doctrine:migrations:migrate
 
+  reconcilation-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Set env release
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Check Tags
+        run: git tag
+
+
 
 
 #TODO deploy stage
