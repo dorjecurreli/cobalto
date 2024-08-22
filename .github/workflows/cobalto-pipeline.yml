@@ -100,7 +100,14 @@ jobs:
             docker compose up -d
             sleep 20
             docker container exec cobalto php bin/console doctrine:migrations:migrate
-            exit 1
+
+      - name: send telegram
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: Hello Cobalto
+
 
   reconcilation:
     runs-on: ubuntu-latest
