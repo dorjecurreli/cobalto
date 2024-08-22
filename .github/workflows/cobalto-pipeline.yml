@@ -100,6 +100,54 @@ jobs:
             docker compose up -d
             sleep 20
             docker container exec cobalto php bin/console doctrine:migrations:migrate
+            exit 1
+
+  reconcilation-job:
+    runs-on: ubuntu-latest
+    needs: deploy-prod
+    if: success()
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set env release
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Set env previous release
+        run: |
+          echo "PREVIOUS_RELEASE_VERSION=$(git tag -l 'v.*.*.*-prod' --sort=-v:refname | head -n 2 | tail -n 1)" >> $GITHUB_ENV
+          cat $GITHUB_ENV
+
+      - uses: appleboy/ssh-action@v1.0.0
+        name: Deploy IaC
+        env:
+          SSH_HOST: ${{ vars.SSH_HOST }}
+          SSH_REMOTE_USER: ${{ secrets.SSH_REMOTE_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_PORT: ${{ vars.SSH_PORT }}
+          COMMON_BASE_PATH: ${{ vars.COMMON_BASE_PATH }}
+          DOCKERHUB_NAMESPACE: ${{ secrets.DOCKERHUB_NAMESPACE }}
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        with:
+          host: ${{ vars.SSH_HOST }}
+          username: ${{ secrets.SSH_REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ vars.SSH_PORT }}
+          envs: RELEASE_VERSION,REPO_SLUG,COMMON_BASE_PATH,DOCKERHUB_NAMESPACE
+          script_stop: true
+          script: |
+            echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+            cd ${COMMON_BASE_PATH}/${REPO_SLUG}
+            sed -i "s|dorjecurreli/cobalto:v[0-9]\+\.[0-9]\+\.[0-9]\+|dorjecurreli/cobalto:${PREVIOUS_RELEASE_VERSION}|" docker-compose.production.yml
+            cp docker-compose.production.yml docker-compose.yml
+            cp .env.production .env
+            docker compose down
+            docker compose up -d
+            sleep 20
+            docker container exec cobalto php bin/console doctrine:migrations:migrate
+          
+
+
 
 
 
