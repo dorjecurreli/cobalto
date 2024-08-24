@@ -103,7 +103,7 @@ jobs:
             docker compose up -d
             sleep 20
             docker container exec cobalto php bin/console doctrine:migrations:migrate
-            exit 1
+            docker container exec cobalto php bin/console cache:warmup --env=prod --no-debug
 
       - name: Send telegram message deploy failure
         uses: appleboy/telegram-action@master
