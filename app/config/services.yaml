@@ -38,3 +38,9 @@ services:
               credentials:
                   key: "%env(DO_SOS_ACCESS_KEY_ID)%"
                   secret: "%env(DO_SOS_SECRET_ACCESS_KEY)%"
+
+    App\Service\FacebookService:
+        arguments:
+            $defaultGraphVersion: 'v20.0'
+            $pageAccessToken: '%env(FACEBOOK_PAGE_ACESS_TOKEN)%'
+            $cobaltoPageId: '%env(FACEBOOK_COBALTO_PAGE_ID)%'

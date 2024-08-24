@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Event;
 use App\Form\EventType;
 use App\Repository\EventRepository;
+use App\Service\FacebookService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -89,6 +90,13 @@ class EventAdminController extends AbstractController
         return $this->redirectToRoute('admin_events_list', [], Response::HTTP_SEE_OTHER);
     }
 
+    #[Route('/facebook', name: 'get_from_facebook', methods: ['GET'])]
+    public function getFromFacebook(FacebookService $facebookService): Response
+    {
+        $facebookEvents = $facebookService->getPageEvents();
+        dd($facebookEvents);
+    }
+
     #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(Event $event): Response
     {
@@ -96,4 +104,6 @@ class EventAdminController extends AbstractController
             'event' => $event,
         ]);
     }
+
+
 }
