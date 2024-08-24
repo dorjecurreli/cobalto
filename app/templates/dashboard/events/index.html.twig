@@ -1,0 +1,39 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}{{ 'events.title'|trans }}{% endblock %}
+
+{% block main %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">{{ 'events.title'|trans }}</h1>
+
+        <a href="{{ path('admin_events_create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    class="bi bi-person-plus-fill m-lg-1"></i>{{ 'events.add'|trans }}</a>
+    </div>
+
+    <table id="events-table" class="display" lang="{{ app.locale }}">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>{{ 'events.name'|trans }}</th>
+            <th>Start Date</th>
+            <th>Start Time</th>
+            <th>{{ 'events.actions'|trans }}</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.name }}</td>
+                <td>{{ event.startDate|date('Y-m-d') }}</td>
+                <td>{{ event.startTime|date('H:i') }}</td>
+                <td>
+                    <a href="{{ path('admin_events_edit', {'id': event.id}) }}"><i class="bi bi-pencil-square"></i></a>
+                    <a href="{{ path('admin_events_show', {'id': event.id}) }}"><i class="bi bi-info-square"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

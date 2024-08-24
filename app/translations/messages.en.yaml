@@ -53,6 +53,27 @@ artists:
       edit: Artist edited successfully!
       delete: Artist deleted successfully!
 
+# Events
+events:
+  title: Events
+  title-singular: Event
+  add: Add Event
+  name: Name
+  actions: Actions
+  edit: Edit Event
+  create: Create New Event
+  field:
+    name: Name
+    startDate: Start Date
+    startTime: Start Time
+    description: Description
+
+  flash:
+    success:
+      add: Event created successfully!
+      edit: Event edited successfully!
+      delete: Event deleted successfully!
+
 
 
 

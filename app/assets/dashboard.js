@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initDataTable('#users-table');
     initDataTable('#artists-table');
+    initDataTable('#events-table');
 });
 
 

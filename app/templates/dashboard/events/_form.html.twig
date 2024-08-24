@@ -1,0 +1,42 @@
+{{ form_start(form) }}
+{{ form_errors(form) }}
+
+<div class="col-12">
+    <div class="form-group">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+        <div class="form-error text-danger">
+            {{ form_errors(form.name) }}
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        {{ form_label(form.startDate) }}
+        {{ form_widget(form.startDate, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.startTime) }}
+        {{ form_widget(form.startTime, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-12 d-flex justify-content-between">
+        <div>
+            <button type="submit" class="btn btn-primary btn-custom" name="submit">{{ button_label|default('global.save'|trans) }}</button>
+            <button type="reset" class="btn btn-secondary btn-custom" onclick="window.location.href = '{{ path('admin_events_list')}}'">{{ 'global.cancel'|trans }}</button>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
+
+
+
+
