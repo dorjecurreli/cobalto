@@ -1,0 +1,41 @@
+<div class="event-form">
+    {{ form_start(form) }}
+    <div class="col-12">
+        <div class="form-group">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.startDate) }}
+        {{ form_widget(form.startDate, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.startTime) }}
+        {{ form_widget(form.startTime, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.location) }}
+        {{ form_widget(form.location, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12 d-flex justify-content-between">
+            <div>
+                <button type="submit" class="btn btn-primary btn-custom" name="submit">{{ button_label|default('global.publish'|trans) }}</button>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+
+
+</div>

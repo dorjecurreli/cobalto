@@ -5,6 +5,7 @@ global:
   update: Update
   edit: Edit
   delete: Delete
+  publish: Publish
   flash:
     danger:
       invalid-csrf: Invalid CSRF Token.
@@ -62,6 +63,8 @@ events:
   actions: Actions
   edit: Edit Event
   create: Create New Event
+  facebook:
+    publish: Publish facebook Event
   field:
     name: Name
     startDate: Start Date

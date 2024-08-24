@@ -26,6 +26,13 @@ class Event
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\Column(type: Types::BIGINT, nullable: true)]
+    private ?int $facebookEventId = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $location = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +82,30 @@ class Event
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getFacebookEventId(): ?int
+    {
+        return $this->facebookEventId;
+    }
+
+    public function setFacebookEventId(?int $facebookEventId): static
+    {
+        $this->facebookEventId = $facebookEventId;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?string $location): static
+    {
+        $this->location = $location;
 
         return $this;
     }

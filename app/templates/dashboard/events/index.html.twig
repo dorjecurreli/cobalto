@@ -6,8 +6,16 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">{{ 'events.title'|trans }}</h1>
 
-        <a href="{{ path('admin_events_create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="bi bi-person-plus-fill m-lg-1"></i>{{ 'events.add'|trans }}</a>
+        <div class="d-flex">
+            <a href="{{ path('admin_events_create') }}" class="btn btn-sm btn-primary shadow-sm me-2 d-none d-sm-inline-block">
+                <i class="bi bi-plus-lg  m-lg-1"></i>{{ 'events.add'|trans }}
+            </a>
+            {% if not allFacebookEventsPublished %}
+            <a href="{{ path('admin_events_get_from_facebook') }}" class="btn btn-sm btn-primary shadow-sm d-none d-sm-inline-block">
+                <i class="bi bi-facebook fill m-lg-1"></i>{{ 'events.facebook.publish'|trans }}
+            </a>
+            {% endif %}
+        </div>
     </div>
 
     <table id="events-table" class="display" lang="{{ app.locale }}">

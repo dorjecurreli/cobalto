@@ -18,10 +18,13 @@ tinymce.init({
     license_key: 'gpl|jrdqrdzy5tpwliuenm9l1u6ab3jttzbx5yy2ljdszm4ik8qr',
     plugins: 'link',
     promotion: false,
-    branding: false
+    branding: false,
+    readonly : true
     // No need to specify paths if imported directly from node_modules
     // Add your TinyMCE configuration here
 });
+
+
 
 console.log('Cobalto Admin Dashboard')
 

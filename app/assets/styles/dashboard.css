@@ -44,8 +44,6 @@
     }
 }
 
-
-
 .image-container {
     width: 100%;
     height: 200px; /* Adjust height as needed */
@@ -59,4 +57,17 @@
     max-height: 100%;
     object-fit: cover;
 }
+
+input[readonly] {
+    background-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+.tox .tox-edit-area__iframe {
+    background-color: #e9ecef !important;  /* Light grey background */
+    color: #6c757d !important;             /* Grey text color */
+    cursor: not-allowed !important;        /* Not-allowed cursor */
+}
+
 
