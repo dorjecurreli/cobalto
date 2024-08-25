@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ include('app/components/navbar.html.twig') }}
+
+    <div class="container mt-5">
+        {% for event in events %}
+            <div class="event-card">
+                <img src="https://picsum.photos/1000/1000?random={{ random(1,100) }}" alt="" class="event-logo">
+                <div class="event-info">
+                    <div class="event-title">{{ event.name }}</div>
+                    <div class="event-details">
+                        <p>{{ event.description|slice(0,120)|striptags }}...</p>
+                        <p><strong>{{ event.startDate|date('Y-m-d')}} - {{ event.startTime|date('H:i') }}</strong> {% if event.location is defined and event.location is not empty %} | {{ event.location}} {% endif %} </p>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <a class="btn btn-primary" href="{{ path('app_event', {'id': event.id}) }}">Show</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {{ include('app/components/footer.html.twig') }}
+{% endblock %}

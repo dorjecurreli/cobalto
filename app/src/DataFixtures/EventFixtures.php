@@ -18,7 +18,7 @@ class EventFixtures extends Fixture
             $event->setName($faker->word() . ' Event');
             $event->setStartDate(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('now', '+1 year')));
             $event->setStartTime(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('now', '+1 year')));
-            $event->setDescription($faker->text());
+            $event->setDescription($faker->text(10000));
 
             $manager->persist($event);
 
