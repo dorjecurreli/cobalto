@@ -27,7 +27,7 @@ RUN composer install --no-interaction --no-suggest --no-ansi --no-progress
 # TODO: push phar artifact
 
 # Production Stage
-FROM sindriainc/nginx-php:6.3.0-8.3
+FROM sindriainc/nginx-php:6.0.0-local-8.2
 
 WORKDIR /var/www/app
 
@@ -49,8 +49,8 @@ ENV SINDRIA_USER_HOME="/home/sindria"
 USER root
 
 #Patch stdout stderr support
-#COPY ./php/php-fpm.conf /etc/php82/php-fpm.conf
-#COPY ./php/sindria.conf /etc/php82/php-fpm.d/sindria.conf
+COPY ./php/php-fpm.conf /etc/php82/php-fpm.conf
+COPY ./php/sindria.conf /etc/php82/php-fpm.d/sindria.conf
 
 # Install application
 COPY --from=builder /var/www/app /var/www/app
