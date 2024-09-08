@@ -48,10 +48,6 @@ ENV SINDRIA_USER_HOME="/home/sindria"
 
 USER root
 
-#Patch stdout stderr support
-#COPY ./php/php-fpm.conf /etc/php82/php-fpm.conf
-#COPY ./php/sindria.conf /etc/php82/php-fpm.d/sindria.conf
-
 # Install application
 COPY --from=builder /var/www/app /var/www/app
 
