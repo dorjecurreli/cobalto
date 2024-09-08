@@ -1,5 +1,6 @@
 {{ form_start(form) }}
 {{ form_errors(form) }}
+{{ dump(form) }}
 
 <div class="col-12">
     <div class="form-group">
@@ -8,6 +9,11 @@
         <div class="form-error text-danger">
             {{ form_errors(form.name) }}
         </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.logoFile) }}
+        {{ form_widget(form.logoFile, {'attr': {'class': 'form-control'}}) }}
     </div>
 
 

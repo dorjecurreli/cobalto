@@ -43,6 +43,8 @@ class EventAdminController extends AbstractController
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
 
+//        dd($form->getErrors(true, false));
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($event);
             $this->entityManager->flush();

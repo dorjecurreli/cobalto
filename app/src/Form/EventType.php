@@ -6,9 +6,11 @@ use App\Entity\Event;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class EventType extends AbstractType
 {
@@ -16,6 +18,9 @@ class EventType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('logoFile', FileType::class, [
+
+            ])
             ->add('startDate', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Start Date',
