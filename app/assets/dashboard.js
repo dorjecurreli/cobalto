@@ -19,12 +19,14 @@ tinymce.init({
     plugins: 'link',
     promotion: false,
     branding: false,
-    readonly : true
-    // No need to specify paths if imported directly from node_modules
-    // Add your TinyMCE configuration here
+    setup: function (editor) {
+        const textarea = editor.getElement();
+        if (textarea.classList.contains('description-facebook')) {
+            editor.mode.set('readonly')
+        }
+        // TODO: grey out input if readonly
+    }
 });
-
-
 
 console.log('Cobalto Admin Dashboard')
 
@@ -55,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initDataTable('#users-table');
     initDataTable('#artists-table');
-    initDataTable('#events-table');
 });
 
 

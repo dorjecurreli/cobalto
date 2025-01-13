@@ -64,10 +64,10 @@ input[readonly] {
     cursor: not-allowed;
 }
 
-.tox .tox-edit-area__iframe {
-    background-color: #e9ecef !important;  /* Light grey background */
-    color: #6c757d !important;             /* Grey text color */
-    cursor: not-allowed !important;        /* Not-allowed cursor */
-}
+/*.tox .tox-edit-area__iframe {*/
+/*    background-color: #e9ecef !important;  !* Light grey background *!*/
+/*    color: #6c757d !important;             !* Grey text color *!*/
+/*    cursor: not-allowed !important;        !* Not-allowed cursor *!*/
+/*}*/
 
 
