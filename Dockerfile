@@ -1,5 +1,5 @@
 
-FROM sindriainc/nginx-php:6.0.0-local-8.2 as builder
+FROM sindriainc/nginx-php:7.0.0-local-8.3 as builder
 
 USER root
 
@@ -27,7 +27,7 @@ RUN composer install --no-interaction --no-suggest --no-ansi --no-progress
 # TODO: push phar artifact
 
 # Production Stage
-FROM sindriainc/nginx-php:6.1.0-8.3
+FROM sindriainc/nginx-php:7.0.0-8.3
 
 WORKDIR /var/www/app
 

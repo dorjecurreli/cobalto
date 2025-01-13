@@ -23,7 +23,7 @@
 
 
     <div class="form-group mt-2">
-        {% if availableLanguages is defined %}{{ form_label(form.bio) }}{% endif %}
+        {% if availableLanguages is not defined %}{{ form_label(form.bio) }}{% endif %}
         {{ form_widget(form.bio, {'attr': {'class': 'form-control'}}) }}
     </div>
 </div>

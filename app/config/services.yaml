@@ -44,3 +44,7 @@ services:
             $defaultGraphVersion: 'v20.0'
             $pageAccessToken: '%env(FACEBOOK_PAGE_ACESS_TOKEN)%'
             $cobaltoPageId: '%env(FACEBOOK_COBALTO_PAGE_ID)%'
+
+    App\Service\ArtworkImporter:
+        arguments:
+            $assetsStorage: '@oneup_flysystem.assets_fs_filesystem'

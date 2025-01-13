@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
-        {% block head %}{% endblock %}
+        {% block head %}<title>Cobalto | {% block title %}{% endblock %}</title>{% endblock %}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
