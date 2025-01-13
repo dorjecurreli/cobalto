@@ -38,3 +38,7 @@ services:
               credentials:
                   key: "%env(DO_SOS_ACCESS_KEY_ID)%"
                   secret: "%env(DO_SOS_SECRET_ACCESS_KEY)%"
+
+    App\Service\ArtworkImporter:
+        arguments:
+            $assetsStorage: '@oneup_flysystem.assets_fs_filesystem'
