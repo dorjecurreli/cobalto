@@ -18,9 +18,14 @@ tinymce.init({
     license_key: 'gpl|jrdqrdzy5tpwliuenm9l1u6ab3jttzbx5yy2ljdszm4ik8qr',
     plugins: 'link',
     promotion: false,
-    branding: false
-    // No need to specify paths if imported directly from node_modules
-    // Add your TinyMCE configuration here
+    branding: false,
+    setup: function (editor) {
+        const textarea = editor.getElement();
+        if (textarea.classList.contains('description-facebook')) {
+            editor.mode.set('readonly')
+        }
+        // TODO: grey out input if readonly
+    }
 });
 
 console.log('Cobalto Admin Dashboard')
@@ -52,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initDataTable('#users-table');
     initDataTable('#artists-table');
+    initDataTable('#events-table');
 });
 
 

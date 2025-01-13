@@ -5,6 +5,7 @@ global:
   update: Update
   edit: Edit
   delete: Delete
+  publish: Publish
   flash:
     danger:
       invalid-csrf: Invalid CSRF Token.
@@ -52,6 +53,29 @@ artists:
       add: Artist created successfully!
       edit: Artist edited successfully!
       delete: Artist deleted successfully!
+
+# Events
+events:
+  title: Events
+  title-singular: Event
+  add: Add Event
+  name: Name
+  actions: Actions
+  edit: Edit Event
+  create: Create New Event
+  facebook:
+    publish: Publish facebook Event
+  field:
+    name: Name
+    startDate: Start Date
+    startTime: Start Time
+    description: Description
+
+  flash:
+    success:
+      add: Event created successfully!
+      edit: Event edited successfully!
+      delete: Event deleted successfully!
 
 
 
