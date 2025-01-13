@@ -127,9 +127,8 @@
 }
 
 .event-header {
-    background: url('https://picsum.photos/1920/400?random=1&blur=2') no-repeat center center;
     background-size: cover;
-    color: white;
+    color: black;
     padding: 60px 0;
 }
 .event-header h1 {

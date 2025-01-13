@@ -5,7 +5,7 @@
     <div class="container mt-5">
         {% for event in events %}
             <div class="event-card">
-                <img src="https://picsum.photos/1000/1000?random={{ random(1,100) }}" alt="" class="event-logo">
+                <img src="{{ vich_uploader_asset(event) }}" alt="" class="event-logo">
                 <div class="event-info">
                     <div class="event-title">{{ event.name }}</div>
                     <div class="event-details">

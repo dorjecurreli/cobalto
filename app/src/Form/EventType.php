@@ -18,8 +18,14 @@ class EventType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('logoFile', FileType::class, [
-
+            ->add('logoFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => false,
+                'download_uri' => false,
+                'image_uri' => false,
+                'asset_helper' => false,
+                'download_label' => 'Download',
+                'delete_label' => 'Delete',
             ])
             ->add('startDate', DateType::class, [
                 'widget' => 'single_text',
