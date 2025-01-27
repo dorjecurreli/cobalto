@@ -1,10 +1,13 @@
 {{ form_start(form) }}
-{{ form_errors(form) }}
+<span class="text-danger">{{ form_errors(form) }}</span>
 
 <div class="col-12">
     <div class="form-group">
         {{ form_label(form.name) }}
         {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+        <div class="form-error text-danger">
+            {{ form_errors(form.name) }}
+        </div>
     </div>
 
     {% if availableLanguages is defined %}
@@ -50,11 +53,6 @@
 
                     <div class="col-md-12 mb-3">
                         <div class="col-12">
-                            <div class="form-group">
-                                {{ form_label(form.name) }}
-                                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-
                             <div class="form-group">
                                 {{ form_label(form.imageFile) }}
                                 {{ form_widget(form.imageFile, {'attr': {'class': 'form-control'}}) }}

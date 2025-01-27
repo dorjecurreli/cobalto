@@ -1,0 +1,20 @@
+user:
+  email:
+    email: This value is not a valid email address
+    not_blank: User email cannot be blank
+
+artists:
+  name:
+    not_blank: Artist name cannot be blank
+
+artwork:
+  name:
+    not_blank: Artist name cannot be blank
+
+event:
+  name:
+    not_blank: Event name cannot be blank
+  start_date:
+    not_blank: Event start date cannot be blank
+  start_time:
+    not_blank: Event start time cannot be blank

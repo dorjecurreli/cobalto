@@ -41,7 +41,6 @@ class ArtworkImporter
             $parts = explode('_', pathinfo($fileName, PATHINFO_FILENAME));
 
             $artistName = ucfirst($parts[0]) . ' ' . ucfirst($parts[1]);
-            $artworkName =  $parts[0][0] . $parts[1][0] . '_' . $parts[2];
 
             $artist = $this->em->getRepository(Artist::class)->findOneBy(['name' => $artistName]);
 
@@ -53,7 +52,6 @@ class ArtworkImporter
             }
 
             $artwork = new Artwork();
-            $artwork->setName($artworkName);
             $artwork->setImageName($file['path']);
             $artwork->setArtist($artist);
 

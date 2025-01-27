@@ -17,6 +17,7 @@ class ArtistType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'artists.name',
+                'required' => false,
             ])
             ->add('bio', TextareaType::class, [
                 'label' => 'Biography',

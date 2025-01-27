@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 #[Vich\Uploadable]
@@ -18,12 +19,15 @@ class Event
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank([], 'event.name.not_blank')]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    #[Assert\NotBlank([], 'event.start_date.not_blank')]
     private ?\DateTimeImmutable $startDate = null;
 
-    #[ORM\Column(type: Types::TIME_IMMUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::TIME_IMMUTABLE)]
+    #[Assert\NotBlank([], 'event.start_time.not_blank')]
     private ?\DateTimeImmutable $startTime = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
