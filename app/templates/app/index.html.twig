@@ -6,12 +6,14 @@
     {{ include('app/components/navbar.html.twig') }}
 
     <!-- First Section: Logo -->
-    <div class="container-fluid d-flex flex-column align-items-center justify-content-center  w-75 ">
-        <img id="logo" src="https://i.ibb.co/D5Wj6fK/logo.png" alt="Logo" class="img-fluid mb-">
+    <div class="container-fluid d-flex flex-column align-items-center justify-content-center w-75">
+        <img src="{{ asset('build/images/logo.png') }}" alt="Logo" class="img-fluid logo-image">
     </div>
 
+
+
     <!-- Second Section: Page content -->
-    <div id="content-section" class="container mt-3">
+    <div id="content-section" class="container">
         <div class="text-end mb-5">
             <h1 class="fw-lighter">poetry & art</h1>
         </div>

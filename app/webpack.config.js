@@ -28,6 +28,12 @@ Encore
         from: 'node_modules/tinymce/icons',
         to: './icons/[path]/[name].[ext]'
     })
+
+
+    .copyFiles({
+        from: './assets/images',
+        to: 'images/[path][name].[ext]'
+    })
     /*
      * ENTRY CONFIG
      *

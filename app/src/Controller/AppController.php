@@ -6,6 +6,7 @@ use App\Entity\Artist;
 use App\Entity\Event;
 use App\Repository\ArtistRepository;
 use App\Repository\EventRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,10 +22,11 @@ class AppController extends AbstractController
     }
 
     #[Route('/{_locale?}', name: 'app_home', requirements: ['_locale' => '%app.supported_locales%'])]
-    public function index(ArtistRepository $artistRepository): Response
+    public function index(ArtistRepository $artistRepository, EntityManagerInterface $entityManager): Response
     {
         return $this->render('app/index.html.twig', [
             'artists' => $artistRepository->findAll(),
+            'eventsAvailable' => $entityManager->getRepository(Event::class)->count([]) > 0,
             'availableLanguages' => $this->params->get('app.available_languages')
         ]);
     }
