@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ 'events.title'|trans }}{% endblock %}
 {% block body %}
-    {{ include('app/components/navbar.html.twig') }}
 
     <div class="container mt-5">
         {% for event in events %}

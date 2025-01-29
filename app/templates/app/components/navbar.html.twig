@@ -10,7 +10,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_home') ~ '#content-section' }}">Artists</a>
                 </li>
-                {% if eventsAvailable %}
+                {% if eventsAvailable is defined and eventsAvailable %}
                 <li class="nav-item">
                     <a class="nav-link {% if app.request.attributes.get('_route') == 'app_events' %}active{% endif %}" href="{{ path('app_events') }}">Events</a>
                 </li>
