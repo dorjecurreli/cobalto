@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block body %}
+    <!-- About Us Section -->
+    <div class="container mt-5">
+        <div class="text-center mb-4">
+            <h1 class="fw-lighter">About Us</h1>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <p class="lead">COBALTO è un esperimento che nasce come idea di "rivista/antologia", per la diffusione della poesia sperimentale.
+                    Non pagine stampate, ma qualcosa di diverso, che vada oltre la rivista stessa, un'espressione artistica collettiva
+                    senza l'intermediazione della "riproducibilità", ma con l'unicità di un'opera viva, un contenitore per raccontare
+                    come la poesia possa esistere in un mondo dove appare superflua.</p>
+            </div>
+        </div>
+
+        <div class="row mt-5 align-items-center">
+            <div class="col-md-6 text-center">
+                <img src="{{ asset('build/images/logo.png') }}" class="img-fluid rounded" alt="About Us Image">
+            </div>
+            <div class="col-md-6">
+                <h2 class="fw-normal">La Nostra Visione</h2>
+                <p>Per questo motivo ci siamo proposti di realizzare un lavoro collettivo, in copie numerate, composto di soli originali.
+                    Pur con qualche difformità rispetto alla richiesta iniziale, in generale è stata accolta e rispettata l’idea di produrre
+                    un insieme di originali che andassero a formare una serie di raccolte uniche nel loro genere.</p>
+                <p class="fst-italic">Mauro Bianchi, Gianni Curreli, John Gian</p>
+            </div>
+        </div>
+    </div>
+
+    {{ include('app/components/footer.html.twig') }}
+{% endblock %}

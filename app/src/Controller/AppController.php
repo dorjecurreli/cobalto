@@ -60,4 +60,20 @@ class AppController extends AbstractController
             'availableLanguages' => $this->params->get('app.available_languages')
         ]);
     }
+
+    #[Route('{_locale?}/about', name: 'app_about', requirements: ['_locale' => '%app.supported_locales%'])]
+    public function about(): Response
+    {
+        return $this->render('app/about.html.twig', [
+            'availableLanguages' => $this->params->get('app.available_languages')
+        ]);
+    }
+
+    #[Route('{_locale?}/contacts', name: 'app_contacts', requirements: ['_locale' => '%app.supported_locales%'])]
+    public function contacts(): Response
+    {
+        return $this->render('app/contacts.html.twig', [
+            'availableLanguages' => $this->params->get('app.available_languages')
+        ]);
+    }
 }
