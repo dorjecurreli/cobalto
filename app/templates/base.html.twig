@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
-        {% block head %}<title>Cobalto | {% block title %}{% endblock %}</title>{% endblock %}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
+    <meta name="description" content="Poetry & Art">
+    <meta name="keywords" content="poetry, art, artists, creativity, artworks, culture, inspiration, Cobalto">
+    <meta name="author" content="Cobalto">
+    <link rel="canonical" href="https://www.cobaltopoetry.art/">
 
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
+    {% block head %}
+        <title>Cobalto | {% block title %}{% endblock %}</title>
+    {% endblock %}
 
-        {% block body %}{% endblock %}
-    </body>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+</body>
 </html>
