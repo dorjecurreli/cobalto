@@ -145,3 +145,11 @@
 .logo-image {
     height: 40.2rem;
 }
+
+
+@media (max-width: 768px) { /* Targets screens smaller than tablets */
+    .logo-image {
+        max-width: 120%; /* Adjust as needed */
+        height: auto;
+    }
+}
