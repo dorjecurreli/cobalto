@@ -168,14 +168,14 @@ a {
 .navbar-white {
     background-color: white !important;
 }
-.navbar-nav .nav-link {
+.nav-middle .navbar-nav .nav-link {
     color: #333 !important; /* Dark color for the links to make them visible */
     font-size: 18px; /* Increase the font size */
 }
-.navbar-nav .nav-link.active {
+.nav-middle .navbar-nav .nav-link.active {
     color: #0056b3 !important; /* Change active link color if needed */
 }
-.navbar-nav .nav-link:hover {
+.nav-middle .navbar-nav .nav-link:hover {
     color: #0056b3 !important; /* Change hover color for better visibility */
 }
 
