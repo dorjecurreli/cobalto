@@ -15,10 +15,12 @@ use Symfony\Component\Routing\Attribute\Route;
 class AppController extends AbstractController
 {
     private ParameterBagInterface $params;
+    private EntityManagerInterface $entityManager;
 
-    public function __construct(ParameterBagInterface $params)
+    public function __construct(ParameterBagInterface $params, EntityManagerInterface $entityManager)
     {
         $this->params = $params;
+        $this->entityManager = $entityManager;
     }
 
     #[Route('/{_locale?}', name: 'app_home', requirements: ['_locale' => '%app.supported_locales%'])]
@@ -31,10 +33,19 @@ class AppController extends AbstractController
         ]);
     }
 
+    #[Route('{_locale?}/artists', name: 'app_artists', requirements: ['_locale' => '%app.supported_locales%'])]
+    public function artists(): Response
+    {
+        return $this->render('app/artists/index.html.twig', [
+            'availableLanguages' => $this->params->get('app.available_languages'),
+            'artists' => $this->entityManager->getRepository(Artist::class)->findAll(),
+        ]);
+    }
+
     #[Route('{_locale?}/artist/{id}', name: 'app_artist', requirements: ['_locale' => '%app.supported_locales%'])]
     public function artist(Artist $artist): Response
     {
-        return $this->render('app/artists/index.html.twig', [
+        return $this->render('app/artists/artist.html.twig', [
             'artist' => $artist,
             'availableLanguages' => $this->params->get('app.available_languages')
         ]);

@@ -16,6 +16,10 @@
             <h1 class="fw-lighter">poetry & art</h1>
         </div>
 
+        <div class="text-end mb-5">
+            {{ include('app/components/middle-navbar.html.twig') }}
+        </div>
+
         <!-- Artists Grid -->
         <div class="d-flex flex-wrap justify-content-center" id="artists-grid">
             {% for artist in artists %}

@@ -23,6 +23,19 @@
 .navbar-cobalt {
     background-color: #0047ab; /* Cobalt blue */
 }
+
+.navbar-middle {
+    background-color: rgba(30, 90, 200, 0.97);/* Soft cobalt blue with transparency */
+    border-radius: 15px; /* Rounded corners */
+    padding: 10px; /* Spacing inside navbar */
+}
+
+.navbar-outline {
+    border: 2px solid black; /* Creates the outline */
+    border-radius: 8px; /* Optional: Adds rounded corners */
+    padding: 10px; /* Adds some spacing inside */
+}
+
 .grid-item {
     transition: transform 0.5s ease;
 }
@@ -144,6 +157,10 @@
 
 .logo-image {
     height: 40.2rem;
+}
+
+a {
+    text-decoration: none;
 }
 
 
