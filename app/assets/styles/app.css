@@ -179,6 +179,12 @@ a {
 }
 
 
+.list-group-item {
+    border-width: 0 0 1px 0 !important; /* Only keep bottom border */
+    border-color: transparent !important; /* Make it invisible */
+}
+
+
 @media (max-width: 768px) { /* Targets screens smaller than tablets */
     .logo-image {
         max-width: 120%; /* Adjust as needed */
