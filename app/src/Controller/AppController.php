@@ -87,4 +87,12 @@ class AppController extends AbstractController
             'availableLanguages' => $this->params->get('app.available_languages')
         ]);
     }
+
+    #[Route('{_locale?}/artwork', name: 'app_artwork', requirements: ['_locale' => '%app.supported_locales%'])]
+    public function artwork(): Response
+    {
+        return $this->render('app/artwork.html.twig', [
+            'availableLanguages' => $this->params->get('app.available_languages')
+        ]);
+    }
 }

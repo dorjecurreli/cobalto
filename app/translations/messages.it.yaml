@@ -36,3 +36,11 @@ artists:
     image: File Immagine
     add: Aggiungi Opera d'Arte
 
+
+app:
+  about-us: Chi siamo
+  contacts: Contattaci
+  artwork: Opera
+  events: Eventi
+  artists: Artisti
+

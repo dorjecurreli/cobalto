@@ -77,6 +77,13 @@ events:
       edit: Event edited successfully!
       delete: Event deleted successfully!
 
+app:
+  about-us: About Us
+  contacts: Contact us
+  artwork: Artwork
+  events: Events
+  artists: Artists
+
 
 
 

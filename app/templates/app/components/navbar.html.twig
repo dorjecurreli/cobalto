@@ -9,18 +9,18 @@
                         <a class="nav-link {% if app.request.attributes.get('_route') == 'app_home' %}active{% endif %}" aria-current="page" href="{{ path('app_home') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_about' %}active{% endif %}" href="{{ path('app_about') }}">About Us</a>
+                        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_about' %}active{% endif %}" href="{{ path('app_about') }}">{{ 'app.about-us'|trans }}</a>
                     </li>
 
                     {% if eventsAvailable is defined and eventsAvailable %}
                     <li class="nav-item">
-                        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_events' %}active{% endif %}" href="{{ path('app_events') }}">Events</a>
+                        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_events' %}active{% endif %}" href="{{ path('app_events') }}">{{ 'app.events'|trans }}</a>
                     </li>
                     {% endif %}
 
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link {% if app.request.attributes.get('_route') == 'app_contacts' %}active{% endif %}" href="{{ path('app_contacts') }}">Contacts</a>
+                    <a class="nav-link {% if app.request.attributes.get('_route') == 'app_contacts' %}active{% endif %}" href="{{ path('app_contacts') }}">{{ 'app.contacts'|trans }}</a>
                 </li>
             </ul>
         </div>

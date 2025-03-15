@@ -1,9 +1,9 @@
 <div class="container mt-3">
-    <div class="d-flex justify-content-between ">
-        <a href="{{ path('app_artists') }}" class="text-dark fs-2 text-decoration-none custom-link">artists</a>
-        <a href="#" class="mx-auto text-dark fs-2 text-decoration-none custom-link">artwork</a>
+    <div class="d-flex justify-content-center gap-5">
+        <a href="{{ path('app_artists') }}" class="text-dark fs-2 text-decoration-none custom-link">{{ 'app.artists'|trans|lower }}</a>
+        <a href="{{ path('app_artwork') }}" class="text-dark fs-2 text-decoration-none custom-link">{{ 'app.artwork'|trans|lower }}</a>
         {% if eventsAvailable is defined and eventsAvailable %}
-        <a href="{{ path('app_events') }}" class="text-dark fs-2 text-decoration-none custom-link">events</a>
+            <a href="{{ path('app_events') }}" class="text-dark fs-2 text-decoration-none custom-link">{{ 'app.events'|trans|lower }}</a>
         {% endif %}
     </div>
 </div>

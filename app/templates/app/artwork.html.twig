@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'app.artwork'|trans }}{% endblock %}
+
+{% block body %}
+
+    {% set artworks = [
+        asset('build/images/art-1.jpg'),
+        asset('build/images/art-2.jpg'),
+        asset('build/images/art-3.jpg'),
+    ] %}
+
+    <!-- Artist Introduction -->
+    <header class="mt-5">
+        <div class="container text-center">
+            <h1 class="mt-4">{{ 'app.artwork'|trans }}</h1>
+        </div>
+    </header>
+
+    <!-- Artworks Section -->
+    <section id="artworks" class="mt-5">
+        <div class="container">
+            <!-- Artworks Carousel -->
+            <div id="carouselExample" class="carousel slide carousel-container" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    {% for artwork in artworks %}
+                        <div class="carousel-item {% if loop.first %} active {% endif %}">
+                            <a data-fancybox="gallery" href="{{ artwork }}">
+                                <img src="{{ artwork }}" class="d-block w-100 img-fluid carousel-img" alt="Artwork {{ loop.index }}">
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .carousel-img {
+            max-height: 700px;
+            object-fit: cover;
+        }
+    </style>
+
+
+    {{ include('app/components/footer.html.twig') }}
+
+{% endblock %}
