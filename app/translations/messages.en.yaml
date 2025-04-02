@@ -94,7 +94,15 @@ app:
       has generally been embraced and respected.
     vision: Our Vision
     p-2: For this reason, we set out to create a collective work, in numbered copies, composed entirely of originals. Although there were some differences from the initial request, in general, the idea of producing a collection of originals that would form a series of unique compilations was accepted and respected.
-  contacts: Contact us
+  contacts:
+   title: Contact us
+   email: Email
+   phone: Phone
+   address: Address
+   write_us:
+     title: Write Us
+     description: To contact us, click the link below to send an email
+     button: Send Email
   artwork: Artwork
   events: Events
   artists: Artists
