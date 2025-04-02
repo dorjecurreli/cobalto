@@ -38,9 +38,31 @@ artists:
 
 
 app:
-  about-us: Chi siamo
+  about-us:
+    title: Chi siamo
+    p-1: COBALTO è un esperimento che nasce come idea di
+      “rivista/antologia", per la diffusione della poesia
+      sperimentale.
+      Non pagine stampate, ma qualcosa di diverso, che vada
+      oltre la rivista stessa, un'espressione artistica collettiva
+      senza l'intermediazione della “riproducibilità”, ma con
+      l'unicità di un'opera viva, un contenitore per raccontare
+      come la poesia possa esistere in un mondo dove appare
+      superflua.
+      Per questo motivo ci siamo proposti di realizzare un lavoro
+      collettivo, in copie numerate, composto di soli originali.
+      Pur con qualche difformità rispetto alla richiesta iniziale, in
+      generale è stata accolta e rispettata l’idea di produrre un
+      insieme di originali che andassero a formare una serie di
+      raccolte uniche nel loro genere.
+  vision: La nostra Visione
+  p-2: Per questo motivo ci siamo proposti di realizzare un lavoro collettivo, in copie numerate, composto di soli originali.
+    Pur con qualche difformità rispetto alla richiesta iniziale, in generale è stata accolta e rispettata l’idea di produrre
+    un insieme di originali che andassero a formare una serie di raccolte uniche nel loro genere.
   contacts: Contattaci
   artwork: Opera
   events: Eventi
   artists: Artisti
+
+
 

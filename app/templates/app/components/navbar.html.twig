@@ -4,21 +4,12 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                {% if app.request.attributes.get('_route') != 'app_home' %}
+{#                {% if app.request.attributes.get('_route') != 'app_home' %}#}
                     <li class="nav-item">
-                        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_home' %}active{% endif %}" aria-current="page" href="{{ path('app_home') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_about' %}active{% endif %}" href="{{ path('app_about') }}">{{ 'app.about-us'|trans }}</a>
+                        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_about' %}active{% endif %}" href="{{ path('app_about') }}">{{ 'app.about-us.title'|trans }}</a>
                     </li>
 
-                    {% if eventsAvailable is defined and eventsAvailable %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_events' %}active{% endif %}" href="{{ path('app_events') }}">{{ 'app.events'|trans }}</a>
-                    </li>
-                    {% endif %}
-
-                {% endif %}
+{#                {% endif %}#}
                 <li class="nav-item">
                     <a class="nav-link {% if app.request.attributes.get('_route') == 'app_contacts' %}active{% endif %}" href="{{ path('app_contacts') }}">{{ 'app.contacts'|trans }}</a>
                 </li>
