@@ -11,7 +11,7 @@
 
 {#                {% endif %}#}
                 <li class="nav-item">
-                    <a class="nav-link {% if app.request.attributes.get('_route') == 'app_contacts' %}active{% endif %}" href="{{ path('app_contacts') }}">{{ 'app.contacts'|trans }}</a>
+                    <a class="nav-link {% if app.request.attributes.get('_route') == 'app_contacts' %}active{% endif %}" href="{{ path('app_contacts') }}">{{ 'app.contacts.title'|trans }}</a>
                 </li>
             </ul>
         </div>

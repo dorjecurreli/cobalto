@@ -1,31 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'app.contacts'|trans }}{% endblock %}
+{% block title %}{{ 'app.contacts.title'|trans }}{% endblock %}
 
 {% block body %}
     <!-- Contact Us Section -->
     <div class="container mt-5">
         <div class="text-center mb-4">
-            <h1 class="fw-lighter">{{ 'app.contacts'|trans }}</h1>
+            <h1 class="fw-lighter">{{ 'app.contacts.title'|trans }}</h1>
         </div>
 
-        <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-                <p class="lead">Hai domande, proposte o vuoi collaborare con COBALTO? Contattaci via email. Saremo felici di sentirti!</p>
-            </div>
-        </div>
 
         <div class="row mt-5">
             <div class="col-md-6">
-                <h2 class="fw-normal">Informazioni di Contatto</h2>
-                <p><strong>Email:</strong> <a href="mailto:info@cobalto.art">info@cobalto.art</a></p>
-                <p><strong>Telefono:</strong> +39 123 456 7890</p>
-                <p><strong>Indirizzo:</strong> Via della Creatività, 10 - 00100 Roma, Italia</p>
+
+                <p><strong>{{ 'app.contacts.email'|trans }}:</strong> <a href="mailto:contacts@coaltopoetry.art">contacts@coaltopoetry.art</a></p>
+{#                <p><strong>{{ 'app.contacts.phone'|trans }}:</strong> Gianni Curreli: +393281850788, Mauro Bianchi: 12345697785, John Gian: 123145667777777</p>#}
+                <p><strong>{{ 'app.contacts.phone'|trans }}:</strong></p>
+                <ul>
+                    <li>Gianni Curreli: +39 3281850788</li>
+                    <li>Mauro Bianchi: +33 607947487</li>
+                    <li>John Gian: +39 3498073580</li>
+                </ul>
+                <p><strong>{{ 'app.contacts.address'|trans }}:<br></strong> Cobalto c/o Porto dei Santi<br>
+                    Via Biddichena, 7<br>
+                    BOX 606<br>
+                    07021 Arzachena (SS), Italia</p>
+
+
+
             </div>
             <div class="col-md-6">
-                <h2 class="fw-normal">Scrivici</h2>
-                <p>Per contattarci, clicca sul link qui sotto per inviare un'email:</p>
-                <a href="mailto:info@cobalto.art" class="btn btn-primary">Invia Email</a>
+                <h2 class="fw-normal">{{ 'app.contacts.write_us.title'|trans }}</h2>
+                <p>{{ 'app.contacts.write_us.description'|trans }}:</p>
+                <a href="mailto:contacts@coaltopoetry.art" class="btn btn-primary">{{ 'app.contacts.write_us.button'|trans }}</a>
             </div>
         </div>
     </div>
