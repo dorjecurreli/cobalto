@@ -55,11 +55,19 @@ app:
       generale è stata accolta e rispettata l’idea di produrre un
       insieme di originali che andassero a formare una serie di
       raccolte uniche nel loro genere.
-  vision: La nostra Visione
-  p-2: Per questo motivo ci siamo proposti di realizzare un lavoro collettivo, in copie numerate, composto di soli originali.
-    Pur con qualche difformità rispetto alla richiesta iniziale, in generale è stata accolta e rispettata l’idea di produrre
-    un insieme di originali che andassero a formare una serie di raccolte uniche nel loro genere.
-  contacts: Contattaci
+    vision: La nostra Visione
+    p-2: Per questo motivo ci siamo proposti di realizzare un lavoro collettivo, in copie numerate, composto di soli originali.
+      Pur con qualche difformità rispetto alla richiesta iniziale, in generale è stata accolta e rispettata l’idea di produrre
+      un insieme di originali che andassero a formare una serie di raccolte uniche nel loro genere.
+  contacts:
+    title: Contattaci
+    email: Email
+    phone: Telefono
+    address: Indirizzo
+    write_us:
+      title: Scrivici
+      description: Per contattarci, clicca sul link qui sotto per inviare un'email
+      button: Invia Email
   artwork: Opera
   events: Eventi
   artists: Artisti
