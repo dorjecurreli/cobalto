@@ -17,7 +17,7 @@
                     <ul class="list-group list-group-flush">
                         {% for artist in artists|slice(0, (artists|length / 2)|round) %}
                             <li class="list-group-item text-center">
-                                <a href="{{ path('app_artist', {'id': artist.id}) }}" class="h5 no-underline">{{ artist.name }}</a>
+                                <a href="{{ path('app_artist', {'id': artist.id}) }}" class="h5 no-underline notranslate">{{ artist.name }}</a>
                             </li>
                         {% endfor %}
                     </ul>
@@ -26,7 +26,7 @@
                     <ul class="list-group list-group-flush">
                         {% for artist in artists|slice((artists|length / 2)|round) %}
                             <li class="list-group-item text-center">
-                                <a href="{{ path('app_artist', {'id': artist.id}) }}" class="h5 no-underline">{{ artist.name }}</a>
+                                <a href="{{ path('app_artist', {'id': artist.id}) }}" class="h5 no-underline notranslate">{{ artist.name }}</a>
                             </li>
                         {% endfor %}
                     </ul>
